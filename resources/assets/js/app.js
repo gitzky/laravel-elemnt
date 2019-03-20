@@ -11,6 +11,7 @@ window.Vue = require('vue');
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
+
 Vue.use(ElementUI);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,13 +19,19 @@ Vue.use(ElementUI);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('home-layout', require('./components/Home.vue'));
+Vue.component('admin-layout', require('./components/Admin.vue'));
+
+import VueRouter from "vue-router";
+Vue.use(VueRouter);
+
+import router from "./routes.js";
 
 
-
-import Vue from 'vue';
+// import Vue from 'vue';
 
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router
 });
