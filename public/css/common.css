@@ -1,5 +1,5 @@
 html,body{
-	height: 100%;
+	height: 0;
 	background: #ededed;
 }
 *{
@@ -24,10 +24,7 @@ a,a:hover{
 	opacity:.90;
 
 }
-.inner{
-  width: 1040px;
-  margin: 0 auto;
-}
+
 .w_header_top{
 	height: 55px;
 }
@@ -49,13 +46,8 @@ a,a:hover{
 }*/
 .w_search{
 	float: right;
-	padding-right: 10px;
-	padding-left: 10px;
 	height: 80px;
-}
-.w_search{
-	margin-top: 12px;
-	
+  margin-top: 12px;
 }
 
 .router-link-exact-active.router-link-active{
@@ -101,7 +93,7 @@ a,a:hover{
 
 /********************containner开始*********************/
 .w_container{
-	min-height: 720px;
+	min-height: 100%;
 	padding: 55px 0px 40px 0px;
 }
 .w_main_row{

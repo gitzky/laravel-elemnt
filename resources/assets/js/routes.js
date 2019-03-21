@@ -3,32 +3,35 @@ import  VueRouter from "vue-router";
 let routes=[
     {
         path:"/",
+        redirect:'/index'
+    },
+    {
+        path:"/index",
         component:require("./components/Home/index")
     },
-//     {
-//         path:"/myfav",
-//         component:require("./components/m/MyFav")
-//     },
-//     {
-//         path:"/post",
-//         component:require("./components/m/Post")
-//     },
-//     {
-//         path:"/find",
-//         component:require("./components/m/Find")
-//     },
-//     {
-//         path:"/about",
-//         component:require("./components/m/About")
-//     },
-//     {
-//         path:"/detail/:id",
-//         component:require("./components/m/Detail")
-//     },
-// 
-]
-//
-export default new VueRouter({
+    {
+        path:"/articles",
+        component:require("./components/Home/articles")
+    },
+    {
+        path:"/about",
+        component:require("./components/Home/about")
+    },
+    {
+        path:"/comment",
+        component:require("./components/Home/comment")
+    },
+    {
+       path:"/admin",
+       redirect:"/admin/index"
+    },
+    {
+        path:"/admin/index",
+        component:require("./components/Admin/index")
+    },
 
+]
+
+export default new VueRouter({
     routes
 })

@@ -14,7 +14,9 @@
 Route::get('/home', function () {
     return view('Home');
 });
-
 Route::get('/admin',function () {
     return view('Admin');
 });
+
+
+Route::post('/api/admin/selListByParams',"Home\HomeController@index");

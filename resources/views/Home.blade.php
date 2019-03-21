@@ -16,9 +16,6 @@
         <script src="plugin/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="plugin/jquery.page.js"></script>
         <title>小元元博客</title>
-
-        
-        <!-- Styles -->
     </head>
     <body>
        <div id="app">

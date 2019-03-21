@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import store from './store'
 Vue.use(ElementUI);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,5 +30,6 @@ import router from "./routes.js";
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });
