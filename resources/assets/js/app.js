@@ -10,7 +10,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-default/index.css';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI);
 /**
@@ -26,10 +26,6 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 import router from "./routes.js";
-
-
-// import Vue from 'vue';
-
 
 const app = new Vue({
     el: '#app',

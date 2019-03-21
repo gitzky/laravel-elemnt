@@ -1,11 +1,10 @@
 import  VueRouter from "vue-router";
 
 let routes=[
-//     {
-//         path:"/",
-// 
-//         component:require("./components/m/MyFav")
-//     },
+    {
+        path:"/",
+        component:require("./components/Home/index")
+    },
 //     {
 //         path:"/myfav",
 //         component:require("./components/m/MyFav")
