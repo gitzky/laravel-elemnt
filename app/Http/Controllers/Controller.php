@@ -1,39 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    /*
-        $data 返回数据
-        json数据：
-        {
-            "code": "0",
-            "data": {
-                "list": [],
-                "pageNum": 1,
-                "pageSize": 6,
-                "total": 6
-            },
-            "exception": "success",
-            "msg": "成功"
-        }
-    */
-    public function resData($code, $res)
+    public function resData($code,$data)
     {
-        $data = array(
+         /*
+            返回前台的json数据
+            {
+                "code": "0",
+                "data": {
+                    "list": [],//list如果是列表，增加list字段。否则不用
+                    "pageNum": 1,
+                    "pageSize": 6,
+                    "total": 6
+                },
+                "exception": "success",
+                "msg": "成功"
+            }
+        */
+        $response = array(
             "code" => $code,
-            "data" => $res,
+            "data" => $data,
             "exception" => $code === "0" ? "success" : "error",
             "msg" => $code === "0" ? "成功" : "请求失败",
         );
-        return json_encode($data);
+        return json_encode($response);
     }
     
     // 增
@@ -50,13 +51,28 @@ class Controller extends BaseController
         
     }
     //查
-    public function selById($arg,$code,$data)
+    public function selListByParams($arg,$code,$database)
     {
-        if($arg!=='undefined') {
-            echo $this->resData($code, $data);
-        } else {
-            echo $this->resData("10020", "请求参数为空");
-        }
+        $res = DB::table($database)->get();
+        $data = array(
+            "list" => $res,
+            "pageNum" => 1,
+            "pageSize" => 10,
+            "total" => 1
+        );
+        echo $this->resData($code, $data);
+    }
+    //查
+    public function selById($arg,$code,$database)
+    {
+       $res = DB::table($database)->where('id','=',$arg)->get();
+        $data = array(
+            "data" => $res,
+            "pageNum" => 1,
+            "pageSize" => 10,
+            "total" => 1
+        );
+        echo $this->resData($code, $data);
     }
    
     

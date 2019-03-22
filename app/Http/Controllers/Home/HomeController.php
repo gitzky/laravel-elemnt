@@ -7,24 +7,17 @@ use App\Http\Controllers\Controller;
 header('Content-type:text/json');
 class HomeController extends Controller
 {
+    /*
+        调取公共查询函数参数
+        @params
+        第一个参数：$arg，从前台接收的参数
+        第二个参数：code码；0或其他
+        第三个参数：操作哪张表
+    */
     //文章列表
     public function index(Request $request, $arg){
-        $code = '0';
-        $item = array(
-        "canVisit" => 1,
-        "decription" => "111",
-        "name" => "超级管理员"
-        );
-        $list[] = $item;
-        $list[] = $item;
-        $list[] = $item;
-        $data = array(
-            "list" => $list,
-            "pageNum" => 1,
-            "pageSize" => 10,
-            "total" => 1
-        );
-        // $data = json_encode($data);
-        $this->selById($arg,$code,$data);
+        $arg = json_decode($arg)->id;
+        // $this->selListByParams($arg,'0','user');
+        $this->selById($arg,'0','user');
     }
 }
