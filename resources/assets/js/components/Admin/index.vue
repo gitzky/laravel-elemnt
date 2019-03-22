@@ -23,8 +23,12 @@
                 this.msg="我不是首页了"
             },
             loadData() {
-                console.log(this.$store)
-                this.$store.dispatch('admin/selListByParams')
+                axios.post('/api/admin/selListByParams/{id:1}').then(res => {
+                    console.log('res+++++====',res.data)
+                })
+                this.$store.dispatch('admin/selListByParams',{id:1}).then(res=>{
+                    console.log(res)
+                })
             }
         }
         

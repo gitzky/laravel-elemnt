@@ -23,6 +23,7 @@ Vue.use(ElementUI);
 Vue.component('home-layout', require('./components/Home.vue'));
 Vue.component('admin-layout', require('./components/Admin.vue'));
 
+
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 

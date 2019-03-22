@@ -8,10 +8,9 @@ header('Content-type:text/json');
 class HomeController extends Controller
 {
     //文章列表
-    public function index(){
-        
-	
-        $raw_success = array('code' => "0", 'msg' => '验证码正确');
+    public function index(Request $request, $arg){
+ 
+        $raw_success = array('code' => "0", 'msg' => '验证码正确','data' => $arg);
         
         $raw_fail = array('code' => 100023, 'msg' => '验证码错误');
         

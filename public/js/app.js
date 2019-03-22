@@ -101655,8 +101655,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.msg = "我不是首页了";
         },
         loadData: function loadData() {
-            console.log(this.$store);
-            this.$store.dispatch('admin/selListByParams');
+            axios.post('/api/admin/selListByParams/{id:1}').then(function (res) {
+                console.log('res+++++====', res.data);
+            });
+            this.$store.dispatch('admin/selListByParams', { id: 1 }).then(function (res) {
+                console.log(res);
+            });
         }
     }
 
@@ -102676,7 +102680,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   actions: {
-    // 查询订单列表
     selListByParams: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(context, arg) {
         var response;
@@ -102689,7 +102692,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 2:
                 response = _context.sent;
-                return _context.abrupt('return', response.data);
+                return _context.abrupt('return', response);
 
               case 4:
               case 'end':
@@ -103497,10 +103500,9 @@ if (hadRuntime) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = selListByParams;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__untils_request__ = __webpack_require__(242);
 
-
 // 查会员列表
 function selListByParams(arg) {
-  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('/api/admin/selListByParams', arg, { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') });
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('/api/admin/selListByParams/' + JSON.stringify(arg), arg);
 }
 
 /***/ }),

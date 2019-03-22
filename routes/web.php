@@ -19,4 +19,4 @@ Route::get('/admin',function () {
 });
 
 
-Route::post('/api/admin/selListByParams',"Home\HomeController@index");
+Route::post('/api/admin/selListByParams/{params}',"Home\HomeController@index");
