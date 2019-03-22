@@ -94909,11 +94909,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     defaultActive: function defaultActive() {
-      return this.$route.path.replace('/admin', '');
+      return this.$route.path.replace('/admin/index', '');
     }
   },
   data: function data() {
@@ -94952,10 +94961,7 @@ var render = function() {
       _c(
         "el-col",
         {
-          staticStyle: {
-            height: "100vh",
-            "background-color": "rgb(84, 92, 100)"
-          },
+          staticStyle: { height: "100vh", "background-color": "#555" },
           attrs: { span: 3 }
         },
         [
@@ -94966,7 +94972,7 @@ var render = function() {
               staticStyle: { border: "none" },
               attrs: {
                 "default-active": _vm.defaultActive,
-                "background-color": "#545c64",
+                "background-color": "#555",
                 "text-color": "#fff",
                 "active-text-color": "#ffd04b",
                 router: ""
@@ -94984,7 +94990,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "el-submenu",
-                { attrs: { index: "/admin/user" } },
+                { attrs: { index: "0" } },
                 [
                   _c("template", { slot: "title" }, [
                     _c("i", { staticClass: "el-icon-menu" }),
@@ -94995,14 +95001,22 @@ var render = function() {
                   _c(
                     "el-menu-item-group",
                     [
-                      _c("el-menu-item", { attrs: { index: "/admin/list" } }, [
-                        _vm._v("用户列表")
-                      ]),
+                      _c(
+                        "el-menu-item",
+                        { attrs: { index: "/admin/user/list" } },
+                        [
+                          _c("i", { staticClass: "el-icon-menu" }),
+                          _vm._v("用户列表")
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "el-menu-item",
-                        { attrs: { index: "/admin/addUser" } },
-                        [_vm._v("新增用户")]
+                        { attrs: { index: "/admin/user/addUser" } },
+                        [
+                          _c("i", { staticClass: "el-icon-menu" }),
+                          _vm._v("新增用户")
+                        ]
                       )
                     ],
                     1
@@ -95013,7 +95027,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "el-submenu",
-                { attrs: { index: "0" } },
+                { attrs: { index: "1" } },
                 [
                   _c("template", { slot: "title" }, [
                     _c("i", { staticClass: "el-icon-document" }),
@@ -95027,14 +95041,14 @@ var render = function() {
                     "el-menu-item-group",
                     [
                       _c("el-menu-item", { attrs: { index: "/admin/list" } }, [
+                        _c("i", { staticClass: "el-icon-document" }),
                         _vm._v("选项1")
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "el-menu-item",
-                        { attrs: { index: "/admin/addUser" } },
-                        [_vm._v("选项2")]
-                      )
+                      _c("el-menu-item", { attrs: { index: "/admin/list" } }, [
+                        _c("i", { staticClass: "el-icon-document" }),
+                        _vm._v("选项2")
+                      ])
                     ],
                     1
                   )
@@ -95042,13 +95056,44 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _c("el-menu-item", { attrs: { index: "/admin/set" } }, [
-                _c("i", { staticClass: "el-icon-setting" }),
-                _vm._v(" "),
-                _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                  _vm._v("设置")
-                ])
-              ])
+              _c(
+                "el-submenu",
+                { attrs: { index: "2" } },
+                [
+                  _c("template", { slot: "title" }, [
+                    _c("i", { staticClass: "el-icon-setting" }),
+                    _vm._v(" "),
+                    _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                      _vm._v("设置")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "el-menu-item-group",
+                    [
+                      _c(
+                        "el-menu-item",
+                        { attrs: { index: "/admin/set/menuSet" } },
+                        [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v("菜单设置")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "el-menu-item",
+                        { attrs: { index: "/admin/set/roleSet" } },
+                        [
+                          _c("i", { staticClass: "el-icon-setting" }),
+                          _vm._v("权限设置")
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                2
+              )
             ],
             1
           )
@@ -101608,7 +101653,25 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      [_c("el-button", { on: { click: _vm.change } }, [_vm._v("按钮")])],
+      [
+        _c(
+          "ul",
+          _vm._l(_vm.tableData, function(item) {
+            return _c("li", [
+              _c("span", [_vm._v("canVisit:" + _vm._s(item.canVisit) + ",")]),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v("decription:" + _vm._s(item.decription) + ",")
+              ]),
+              _vm._v(" "),
+              _c("span", [_vm._v("name:" + _vm._s(item.name))])
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("el-button", { on: { click: _vm.change } }, [_vm._v("按钮")])
+      ],
       1
     )
   ])
@@ -101639,27 +101702,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            msg: '我是后台首页'
+            msg: '我是后台首页',
+            tableData: []
         };
     },
-    created: function created() {
-        this.loadData();
-    },
+    created: function created() {},
 
     methods: {
         change: function change() {
             this.msg = "我不是首页了";
+            this.loadData();
         },
         loadData: function loadData() {
-            axios.post('/api/admin/selListByParams/{id:1}').then(function (res) {
-                console.log('res+++++====', res.data);
-            });
+            var _this = this;
+
             this.$store.dispatch('admin/selListByParams', { id: 1 }).then(function (res) {
                 console.log(res);
+                _this.tableData = res.data.list;
             });
         }
     }

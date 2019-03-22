@@ -1,44 +1,53 @@
 <template>
   <el-row class="app">
-    <el-col :span="3" style="height:100vh;background-color: rgb(84, 92, 100);">
+    <el-col :span="3" style="height:100vh;background-color: #555">
       <el-menu
         :default-active="defaultActive"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-        background-color="#545c64"
+        background-color="#555"
         text-color="#fff"
         active-text-color="#ffd04b"
         router
         style="border:none">
-        <el-menu-item index="/admin/index">
-        <i class="el-icon-location"></i>
-          <span slot="title">首页</span>
+        <el-menu-item index="/admin/index" >
+            <i class="el-icon-location"></i>
+            <span slot="title">首页</span>
         </el-menu-item>
-        <el-submenu index="/admin/user">
+       
+        <el-submenu index="0">
           <template slot="title">
-            <i class="el-icon-menu"></i>
-            <span>用户管理</span>
+                <i class="el-icon-menu"></i>
+                <span>用户管理</span>
           </template> 
           <el-menu-item-group>
-            <el-menu-item index="/admin/list">用户列表</el-menu-item>
-            <el-menu-item index="/admin/addUser">新增用户</el-menu-item>
+            <el-menu-item index="/admin/user/list"><i class="el-icon-menu"></i>用户列表</el-menu-item>
+            <el-menu-item index="/admin/user/addUser"><i class="el-icon-menu"></i>新增用户</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="0">
+        <el-submenu index="1">
           <template slot="title">
            <i class="el-icon-document"></i>
           <span slot="title">列表</span>
           </template> 
           <el-menu-item-group>
-            <el-menu-item index="/admin/list">选项1</el-menu-item>
-            <el-menu-item index="/admin/addUser">选项2</el-menu-item>
+            <el-menu-item index="/admin/list"><i class="el-icon-document"></i>选项1</el-menu-item>
+            <el-menu-item index="/admin/list"><i class="el-icon-document"></i>选项2</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="/admin/set">
-          <i class="el-icon-setting"></i>
+        
+        <el-submenu index="2">
+          <template slot="title">
+           <i class="el-icon-setting"></i>
           <span slot="title">设置</span>
-        </el-menu-item>
+          </template> 
+          <el-menu-item-group>
+            <el-menu-item index="/admin/set/menuSet"><i class="el-icon-setting"></i>菜单设置</el-menu-item>
+            <el-menu-item index="/admin/set/roleSet"><i class="el-icon-setting"></i>权限设置</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        
       </el-menu>
     </el-col>
     <el-col :span='21'  style="height:100vh;background:#eee;overflow-y: auto;overflow-x: hidden;">
@@ -71,7 +80,7 @@
   export default {
     computed: {
       defaultActive:function(){
-        return this.$route.path.replace('/admin', '')
+        return this.$route.path.replace('/admin/index', '')
       }
     },
     data() {

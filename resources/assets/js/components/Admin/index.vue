@@ -3,6 +3,13 @@
   <div class="container">
     <h2>{{ msg }}</h2>
     <div>
+        <ul>
+            <li v-for="item in tableData">
+                <span>canVisit:{{ item.canVisit }},</span>
+                <span>decription:{{ item.decription }},</span>
+                <span>name:{{ item.name }}</span>
+            </li>
+        </ul>
         <el-button @click="change">按钮</el-button>
     </div>
   </div>
@@ -12,22 +19,22 @@
     export default{
         data() {
             return{
-                msg:'我是后台首页'
+                msg:'我是后台首页',
+                tableData:[]
             }
         },
         created() {
-          this.loadData()  
+         
         },
         methods:{
             change() {
                 this.msg="我不是首页了"
+                this.loadData()
             },
             loadData() {
-                axios.post('/api/admin/selListByParams/{id:1}').then(res => {
-                    console.log('res+++++====',res.data)
-                })
                 this.$store.dispatch('admin/selListByParams',{id:1}).then(res=>{
                     console.log(res)
+                    this.tableData = res.data.list
                 })
             }
         }

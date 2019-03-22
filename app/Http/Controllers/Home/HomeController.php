@@ -9,14 +9,22 @@ class HomeController extends Controller
 {
     //文章列表
     public function index(Request $request, $arg){
- 
-        $raw_success = array('code' => "0", 'msg' => '验证码正确','data' => $arg);
-        
-        $raw_fail = array('code' => 100023, 'msg' => '验证码错误');
-        
-        $res_success = json_encode($raw_success);
-
-
-        echo $res_success;
+        $code = '0';
+        $item = array(
+        "canVisit" => 1,
+        "decription" => "111",
+        "name" => "超级管理员"
+        );
+        $list[] = $item;
+        $list[] = $item;
+        $list[] = $item;
+        $data = array(
+            "list" => $list,
+            "pageNum" => 1,
+            "pageSize" => 10,
+            "total" => 1
+        );
+        // $data = json_encode($data);
+        $this->selById($arg,$code,$data);
     }
 }
