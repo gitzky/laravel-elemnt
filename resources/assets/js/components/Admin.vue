@@ -16,14 +16,14 @@
             <span slot="title">首页</span>
         </el-menu-item>
        
-        <el-submenu index="0">
+        <el-submenu index="/admin/userManage">
           <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>用户管理</span>
           </template> 
           <el-menu-item-group>
-            <el-menu-item index="/admin/user/list"><i class="el-icon-menu"></i>用户列表</el-menu-item>
-            <el-menu-item index="/admin/user/addUser"><i class="el-icon-menu"></i>新增用户</el-menu-item>
+            <el-menu-item index="/admin/userManage/index"><i class="el-icon-menu"></i>用户列表</el-menu-item>
+            <el-menu-item index="/admin/userManage/addUser"><i class="el-icon-menu"></i>新增用户</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="1">
@@ -50,7 +50,7 @@
         
       </el-menu>
     </el-col>
-    <el-col :span='21'  style="height:100vh;background:#eee;overflow-y: auto;overflow-x: hidden;">
+    <el-col :span='21'  style="height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
         <el-menu-item index="/admin/dull">处理中心</el-menu-item>
         <el-menu-item index="/admin/news">消息中心</el-menu-item>
@@ -58,7 +58,7 @@
         <el-menu-item index="##" style="float:right">
           <el-dropdown>
             <span class="el-dropdown-link">
-              <span style="display:inline-block;width:45px;height:45px;border:1px solid #ccc;margin-right:30px"><img style="width:45px;height:45px;float:left" src="#"></span>
+              <span style="display:inline-block;width:45px;height:45px;border:1px solid #ccc;margin-right:30px"><img src="/img/default.png" style="width:45px;height:45px;float:left"></span>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-menu-item index="/admin/person">个人中心</el-menu-item>
@@ -69,9 +69,9 @@
       </el-menu>
       <div class="line"></div>
       <el-row class="main" style="padding:15px;">
-        <keep-alive>
+        
             <router-view></router-view>
-        </keep-alive>
+       
       </el-row>
     </el-col>  
   </el-row>

@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+    
     public function handle($request, \Closure $next)
     {
         // 使用CSRF
@@ -22,5 +23,3 @@ class VerifyCsrfToken extends Middleware
         return $next($request);
     }
 }
-
-
