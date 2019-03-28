@@ -100492,7 +100492,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   actions: {
-    selListByParams: function () {
+    logout: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(context, arg) {
         var response;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -100500,7 +100500,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_admin__["a" /* selListByParams */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_admin__["a" /* logout */])(arg);
 
               case 2:
                 response = _context.sent;
@@ -100514,11 +100514,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         }, _callee, this);
       }));
 
-      function selListByParams(_x, _x2) {
+      function logout(_x, _x2) {
         return _ref.apply(this, arguments);
       }
 
-      return selListByParams;
+      return logout;
     }()
   }
 });
@@ -101302,12 +101302,12 @@ if (hadRuntime) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = selListByParams;
+/* harmony export (immutable) */ __webpack_exports__["a"] = logout;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__untils_request__ = __webpack_require__(81);
 
-// 查会员列表
-function selListByParams(arg) {
-  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('/api/admin/selListByParams/' + JSON.stringify(arg), arg);
+//退出
+function logout(arg) {
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/logout');
 }
 
 /***/ }),
@@ -101398,12 +101398,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 // 查会员列表
 function selUserList(arg) {
-  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('/api/admin/selUserList/' + JSON.stringify(arg), arg);
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/user/selUserList/' + JSON.stringify(arg), arg);
 }
 
 // 查会员详情
 function selUserById(arg) {
-  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('/api/admin/selUserById/' + JSON.stringify(arg), arg);
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/user/selUserById/' + JSON.stringify(arg), arg);
 }
 
 /***/ }),
@@ -101738,13 +101738,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: {
-    defaultActive: function defaultActive() {
-      return this.$route.path.replace('/admin/index', '');
-    }
-  },
   data: function data() {
     return {
       activeIndex: '1',
@@ -101752,8 +101752,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       img: '1.jpg'
     };
   },
+  created: function created() {},
 
   methods: {
+    logout: function logout() {
+      this.$store.dispatch('admin/logout').then(function (res) {
+        if (res.code === '0') {
+          location.reload();
+        }
+      });
+    },
     handleOpen: function handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -101791,13 +101799,17 @@ var render = function() {
               staticClass: "el-menu-vertical-demo",
               staticStyle: { border: "none" },
               attrs: {
-                "default-active": _vm.defaultActive,
+                "default-active": "/admin/index",
                 "background-color": "#555",
                 "text-color": "#fff",
                 "active-text-color": "#ffd04b",
                 router: ""
               },
-              on: { open: _vm.handleOpen, close: _vm.handleClose }
+              on: {
+                open: _vm.handleOpen,
+                close: _vm.handleClose,
+                select: _vm.handleSelect
+              }
             },
             [
               _c("el-menu-item", { attrs: { index: "/admin/index" } }, [
@@ -101941,8 +101953,7 @@ var render = function() {
                 "default-active": _vm.activeIndex,
                 mode: "horizontal",
                 router: ""
-              },
-              on: { select: _vm.handleSelect }
+              }
             },
             [
               _c("el-menu-item", { attrs: { index: "/admin/dull" } }, [
@@ -101999,11 +102010,9 @@ var render = function() {
                             [_vm._v("个人中心")]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "el-menu-item",
-                            { attrs: { index: "/admin/logout" } },
-                            [_vm._v("退出")]
-                          )
+                          _c("el-menu-item", { on: { click: _vm.logout } }, [
+                            _vm._v("退出")
+                          ])
                         ],
                         1
                       )
@@ -102018,6 +102027,23 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "line" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "box10" }),
+          _vm._v(" "),
+          _c(
+            "el-breadcrumb",
+            { staticClass: "pad20_lr", attrs: { separator: "/" } },
+            [
+              _c("el-breadcrumb-item", { attrs: { to: { path: "/admin" } } }, [
+                _vm._v("首页")
+              ]),
+              _vm._v(" "),
+              _c("el-breadcrumb-item", [_vm._v("活动列表")]),
+              _vm._v(" "),
+              _c("el-breadcrumb-item", [_vm._v("活动详情")])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "el-row",
@@ -102068,9 +102094,6 @@ var routes = [{
 }, {
     path: "/comment",
     component: __webpack_require__(221)
-}, {
-    path: "/admin/login",
-    component: __webpack_require__(223)
 }, {
     path: "/admin",
     redirect: "/admin/index"
@@ -103578,126 +103601,11 @@ if (false) {
 }
 
 /***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(224)
-}
-var normalizeComponent = __webpack_require__(4)
-/* script */
-var __vue_script__ = __webpack_require__(226)
-/* template */
-var __vue_template__ = __webpack_require__(227)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/Admin/login.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1392907c", Component.options)
-  } else {
-    hotAPI.reload("data-v-1392907c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 224 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(225);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(27)("12dc67e5", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1392907c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./login.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1392907c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./login.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 225 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(19)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 226 */
-/***/ (function(module, exports) {
-
-//
-//
-//
-//
-
-/***/ }),
-/* 227 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("111111")])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1392907c", module.exports)
-  }
-}
-
-/***/ }),
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
 /* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -103756,41 +103664,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            msg: '我是后台首页',
-            tableData: []
-        };
+        return {};
     },
     created: function created() {},
 
-    methods: {
-        change: function change() {
-            this.msg = "我不是首页了";
-            this.loadData();
-        },
-        loadData: function loadData() {
-            var _this = this;
-
-            this.$store.dispatch('admin/selListByParams', { id: 1 }).then(function (res) {
-                console.log(res);
-                _this.tableData = res.data.list;
-            });
-        }
-    }
+    methods: {}
 
 });
 
@@ -103802,33 +103683,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h2", [_vm._v(_vm._s(_vm.msg))]),
-    _vm._v(" "),
-    _c(
-      "div",
-      [
-        _c(
-          "ul",
-          _vm._l(_vm.tableData, function(item) {
-            return _c("li", [
-              _c("span", [_vm._v("canVisit:" + _vm._s(item.canVisit) + ",")]),
-              _vm._v(" "),
-              _c("span", [
-                _vm._v("decription:" + _vm._s(item.decription) + ",")
-              ]),
-              _vm._v(" "),
-              _c("span", [_vm._v("name:" + _vm._s(item.name))])
-            ])
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("el-button", { on: { click: _vm.change } }, [_vm._v("按钮")])
-      ],
-      1
-    )
-  ])
+  return _c("div", { staticClass: "container" }, [_vm._v("\n 111111\n")])
 }
 var staticRenderFns = []
 render._withStripped = true

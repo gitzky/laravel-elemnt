@@ -31,8 +31,7 @@ Route::namespace('Home')->group(function(){
 -------------------------------------------------------------------------------------------------------------
 */
 
-Route::any('/api/admin/selUserList/{params}',"Admin\AdminController@getUserList");
-Route::any('/api/admin/selUserById/{params}',"Admin\AdminController@getUserDetail");
+
 
 
 Route::get('/admin/user/login','Admin\AdminController@login');
@@ -40,12 +39,12 @@ Route::any('/admin/user/doLogin','Admin\AdminController@doLogin');
 Route::any('/admin/user/doLogout','Admin\AdminController@logout');
 
 Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(){  
-
-Route::any('/',function () {
-    return view('Admin');
-});
-
-
+    Route::any('/',function () {
+        return view('Admin');
+    });
+    Route::any('/api/logout',"AdminController@logout");
+    Route::any('/api/user/selUserList/{params}',"AdminController@getUserList");
+    Route::any('/api/user/selUserById/{params}',"AdminController@getUserDetail");
 
 });
 

@@ -45,7 +45,6 @@ class AdminController extends Controller
      public function doLogin(Request $request)
     {   
 
-        
         //获取提交的用户名和密码
         $username=$request->except('_token')['userName'];
         $password=$request->except('_token')['password'];
@@ -87,7 +86,6 @@ class AdminController extends Controller
         }else{
             //用户名不在数据库中
             return view("login",['username'=>'the user is not found','password'=>'']);
-
         }
 
     }
@@ -99,7 +97,12 @@ class AdminController extends Controller
      public function logout()
     {   
         session(['a_id'=>'']);
-        return back();
+        $data = array(
+            "code"=> '0',
+            "data"=> '退出成功',
+            "msg"=>'success'
+        );
+        return json_encode($data);
     }
 
 }

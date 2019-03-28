@@ -1,12 +1,12 @@
 import {
-  selListByParams
+  logout
 } from '../../api/admin'
 
 export default {
   namespaced: true,
   actions: {
-    async selListByParams(context, arg) {
-      const response = await selListByParams(arg)
+    async logout(context, arg) {
+      const response = await logout(arg)
       return response
     }
   }

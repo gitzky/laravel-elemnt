@@ -38,7 +38,7 @@
 	</div>
 	<!-- //bg effect -->
 	<!-- title -->
-	<h1>XIAO YUAN YUAN BLOG</h1>
+	<h1>ADMIN LOGIN</h1>
 	<!-- //title -->
 	<!-- content -->
 	<div class="sub-main-w3">

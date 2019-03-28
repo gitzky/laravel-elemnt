@@ -23,12 +23,7 @@ let routes=[
         component:require("./components/Home/comment")
     },
     
-    
-    
-    {
-        path:"/admin/login",
-        component:require("./components/Admin/login")
-    },
+
     {
        path:"/admin",
        redirect:"/admin/index"

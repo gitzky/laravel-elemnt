@@ -1,17 +1,18 @@
 <template>
   <el-row class="app">
-    <el-col :span="3" style="height:100vh;background-color: #555">
+    <el-col :span="3" style="height:100vh;background-color: #555;">
       <el-menu
-        :default-active="defaultActive"
+        default-active="/admin/index"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
+        @select="handleSelect" 
         background-color="#555"
         text-color="#fff"
         active-text-color="#ffd04b"
         router
         style="border:none">
-        <el-menu-item index="/admin/index" >
+        <el-menu-item index="/admin/index">
             <i class="el-icon-location"></i>
             <span slot="title">首页</span>
         </el-menu-item>
@@ -51,7 +52,7 @@
       </el-menu>
     </el-col>
     <el-col :span='21'  style="height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" router>
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router>
         <el-menu-item index="/admin/dull">处理中心</el-menu-item>
         <el-menu-item index="/admin/news">消息中心</el-menu-item>
         <el-menu-item index="/admin/order">订单管理</el-menu-item>
@@ -62,27 +63,26 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-menu-item index="/admin/person">个人中心</el-menu-item>
-              <el-menu-item index="/admin/logout">退出</el-menu-item>
+              <el-menu-item @click="logout">退出</el-menu-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-menu-item>
       </el-menu>
       <div class="line"></div>
+      <div class="box10"></div>
+      <el-breadcrumb separator="/" class="pad20_lr">
+        <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+      </el-breadcrumb>
       <el-row class="main" style="padding:15px;">
-        
-            <router-view></router-view>
-       
+          <router-view></router-view>
       </el-row>
     </el-col>  
   </el-row>
 </template> 
 <script>
   export default {
-    computed: {
-      defaultActive:function(){
-        return this.$route.path.replace('/admin/index', '')
-      }
-    },
     data() {
       return {
         activeIndex: '1',
@@ -90,7 +90,17 @@
         img: '1.jpg'
       };
     },
+    created() {
+     
+    },
     methods: {
+      logout() {
+        this.$store.dispatch('admin/logout').then(res => {
+          if (res.code === '0') {
+            location.reload()
+          }
+        })
+      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
@@ -112,6 +122,5 @@
 }
 .app{
     position: relative;
-  
 }
 </style>
