@@ -101741,15 +101741,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       activeIndex: '1',
       activeIndex2: '1',
-      img: '1.jpg'
+      img: '1.jpg',
+      routes: [{
+        id: 1,
+        name: 'index',
+        label: '首页',
+        path: '/admin/index'
+      }, {
+        id: 2,
+        name: 'userManage',
+        label: '用户管理',
+        path: '/admin/userManage',
+        children: [{
+          id: 3,
+          name: 'userList',
+          label: '用户列表',
+          path: '/admin/userManage/userList'
+        }, {
+          id: 4,
+          name: 'userAdd',
+          label: '新增用户',
+          path: '/admin/userManage/userAdd'
+        }]
+      }]
     };
   },
   created: function created() {},
@@ -101770,6 +101790,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     handleSelect: function handleSelect(key, keyPath) {
       console.log(key, keyPath);
+      var str = "/admin/index";
+      var arr = str.split('/');
+      console.log(arr);
     }
   }
 });
@@ -101805,20 +101828,27 @@ var render = function() {
                 "active-text-color": "#ffd04b",
                 router: ""
               },
-              on: {
-                open: _vm.handleOpen,
-                close: _vm.handleClose,
-                select: _vm.handleSelect
-              }
+              on: { open: _vm.handleOpen, close: _vm.handleClose }
             },
             [
-              _c("el-menu-item", { attrs: { index: "/admin/index" } }, [
-                _c("i", { staticClass: "el-icon-location" }),
-                _vm._v(" "),
-                _c("span", { attrs: { slot: "title" }, slot: "title" }, [
-                  _vm._v("首页")
-                ])
-              ]),
+              _c(
+                "el-menu-item",
+                {
+                  attrs: { name: "index", index: "/admin/index" },
+                  on: {
+                    click: function($event) {
+                      return _vm.handleSelect("/admin/index", "index")
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "el-icon-location" }),
+                  _vm._v(" "),
+                  _c("span", { attrs: { slot: "title" }, slot: "title" }, [
+                    _vm._v("首页")
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "el-submenu",

@@ -6,17 +6,16 @@
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-        @select="handleSelect" 
+     
         background-color="#555"
         text-color="#fff"
         active-text-color="#ffd04b"
         router
         style="border:none">
-        <el-menu-item index="/admin/index">
+        <el-menu-item name="index" index="/admin/index" @click="handleSelect('/admin/index','index')">
             <i class="el-icon-location"></i>
             <span slot="title">首页</span>
         </el-menu-item>
-       
         <el-submenu index="/admin/userManage">
           <template slot="title">
                 <i class="el-icon-menu"></i>
@@ -37,7 +36,7 @@
             <el-menu-item index="/admin/list"><i class="el-icon-document"></i>选项2</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        
+
         <el-submenu index="2">
           <template slot="title">
            <i class="el-icon-setting"></i>
@@ -48,7 +47,6 @@
             <el-menu-item index="/admin/set/roleSet"><i class="el-icon-setting"></i>权限设置</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        
       </el-menu>
     </el-col>
     <el-col :span='21'  style="height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;">
@@ -78,16 +76,45 @@
       <el-row class="main" style="padding:15px;">
           <router-view></router-view>
       </el-row>
-    </el-col>  
+    </el-col>
   </el-row>
-</template> 
+</template>
 <script>
   export default {
     data() {
       return {
         activeIndex: '1',
         activeIndex2: '1',
-        img: '1.jpg'
+        img: '1.jpg',
+        routes:[
+          {
+            id: 1,
+            name: 'index',
+            label: '首页',
+            path: '/admin/index',
+          },
+          {
+            id: 2,
+            name: 'userManage',
+            label: '用户管理',
+            path: '/admin/userManage',
+            children: [
+              {
+                id: 3,
+                name: 'userList',
+                label: '用户列表',
+                path: '/admin/userManage/userList',
+              },
+              {
+                id: 4,
+                name: 'userAdd',
+                label: '新增用户',
+                path: '/admin/userManage/userAdd',
+              }
+            ]
+          }
+          
+        ]
       };
     },
     created() {
@@ -108,7 +135,10 @@
         console.log(key, keyPath);
       },
       handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+        console.log(key, keyPath)
+        var str = "/admin/index"
+        var arr = str.split('/')
+        console.log(arr)
       }
     }
   }
