@@ -15,21 +15,19 @@ class AdminController extends Controller
         第二个参数：code码；0或其他
         第三个参数：操作哪张表
     */
-    //文章列表
     public function index(Request $request, $arg){
         $arg = json_decode($arg)->id;
         // $this->selListByParams($arg,'0','user');
         $this->selById($arg,'0','user');
     }
-    
+    //用户列表
     public function getUserList(Request $request, $arg)
     {
         $this->selListByParams($arg,'0','user');
     }
-    
-    public function getUserDetail( $arg)
+    //用户详情
+    public function getUserDetail($arg)
     {
-        
         $arg = json_decode($arg)->id;
         $this->selById($arg,'0','user');
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container" style="padding:20px 30px">
+  <div class="app-container" style="padding:20px 0">
     <el-form ref="form" :model="form" :inline="true" size="medium" style="border:1px solid #ebeef5;margin-bottom:20px" label-width="100px">
       <div style="height:40px;line-height:40px;font-weight:bold;padding-left:10px;background-color:#ccc;margin-bottom:20px">查询</div>
       <el-form-item label="姓名" prop="realNameLike">

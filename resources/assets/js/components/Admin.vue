@@ -1,16 +1,17 @@
 <template>
-  <el-row class="app">
-    <el-col :span="3" style="height:100vh;background-color: #555;">
+  <el-row class="app clear">
+    <!-- <el-col :span="3" style="height:100vh;background-color: #555;overflow-y: auto;overflow-x: hidden;"> -->
+      <div class="pull-left" style="height:100vh;background-color: #555;overflow-y: auto;overflow-x: hidden;">
       <el-menu
-        default-active="/admin/index"
+        :default-active="defaultPath"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-     
         background-color="#555"
         text-color="#fff"
         active-text-color="#ffd04b"
         router
+        :collapse="isCollapse"
         style="border:none">
         <el-menu-item name="index" index="/admin/index" @click="handleSelect('/admin/index','index')">
             <i class="el-icon-location"></i>
@@ -18,22 +19,22 @@
         </el-menu-item>
         <el-submenu index="/admin/userManage">
           <template slot="title">
-                <i class="el-icon-menu"></i>
+                <i class="el-icon-star-on"></i>
                 <span>用户管理</span>
           </template> 
           <el-menu-item-group>
-            <el-menu-item index="/admin/userManage/index"><i class="el-icon-menu"></i>用户列表</el-menu-item>
-            <el-menu-item index="/admin/userManage/addUser"><i class="el-icon-menu"></i>新增用户</el-menu-item>
+            <el-menu-item index="/admin/userManage/index"><i class="el-icon-star-on"></i>用户列表</el-menu-item>
+            <el-menu-item index="/admin/userManage/addUser"><i class="el-icon-star-on"></i>新增用户</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="1">
+        <el-submenu index="/admin/menuManage">
           <template slot="title">
-           <i class="el-icon-document"></i>
-          <span slot="title">列表</span>
+           <i class="el-icon-menu"></i>
+          <span slot="title">菜单管理</span>
           </template> 
           <el-menu-item-group>
-            <el-menu-item index="/admin/list"><i class="el-icon-document"></i>选项1</el-menu-item>
-            <el-menu-item index="/admin/list"><i class="el-icon-document"></i>选项2</el-menu-item>
+            <el-menu-item index="/admin/menuManage/menuList"><i class="el-icon-menu"></i>菜单列表</el-menu-item>
+            <el-menu-item index="/admin/menuManage/addMenu"><i class="el-icon-menu"></i>新增菜单</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -48,9 +49,17 @@
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
-    </el-col>
-    <el-col :span='21'  style="height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;">
+      </div>
+    <!-- </el-col> -->
+    <!-- <el-col :span='21'  style="height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;"> -->
+      <div class="pull-left" style="width: 87%;height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;" :class="{wMax:isCollapse,wMin:!isCollapse}">
+      <div style="width: 100%;">
+        
+     
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router>
+        <el-menu-item>
+           <div :class="{red:!isCollapse}" @click="isCollapse=!isCollapse"><i class="el-icon-menu"></i></div>
+        </el-menu-item>
         <el-menu-item index="/admin/dull">处理中心</el-menu-item>
         <el-menu-item index="/admin/news">消息中心</el-menu-item>
         <el-menu-item index="/admin/order">订单管理</el-menu-item>
@@ -73,16 +82,20 @@
         <el-breadcrumb-item>活动列表</el-breadcrumb-item>
         <el-breadcrumb-item>活动详情</el-breadcrumb-item>
       </el-breadcrumb>
-      <el-row class="main" style="padding:15px;">
+      <el-row class="main" style="padding:15px 20px;">
           <router-view></router-view>
       </el-row>
-    </el-col>
+       </div>
+      </div>
+    <!-- </el-col> -->
   </el-row>
 </template>
 <script>
   export default {
     data() {
       return {
+        isCollapse: false,
+        defaultPath:'/admin/index',
         activeIndex: '1',
         activeIndex2: '1',
         img: '1.jpg',
@@ -118,7 +131,7 @@
       };
     },
     created() {
-     
+      this.defaultPath = this.$route.path
     },
     methods: {
       logout() {
@@ -144,6 +157,13 @@
   }
 </script>
 <style>
+  .el-menu-item .red i{
+    color: #409EFF
+  }
+ .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
 .el-submenu .el-menu-item {
     height: 50px;
     line-height: 50px;
@@ -152,5 +172,28 @@
 }
 .app{
     position: relative;
+}
+.wMax{
+  animation: wMax .3s ease-in-out forwards;
+}
+.wMin{
+  animation: wMin .3s ease-in-out forwards;
+}
+
+@keyframes wMax {
+  0% {
+    width: 87%;
+  }
+  100% {
+    width: 95%;
+  }
+}
+@keyframes wMin {
+  0% {
+    width: 95%;
+  }
+  100% {
+    width: 87%;
+  }
 }
 </style>
