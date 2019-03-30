@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-   111111
+    <div class="box" style="width: 500px;margin:200px auto;font-size:50px;">后台管理首页</div>
   </div>
 
 </template> 
