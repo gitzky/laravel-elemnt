@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-03-28 18:45:52
+Date: 2019-03-30 18:19:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -131,11 +131,12 @@ INSERT INTO `post_type` VALUES ('8', 'layui-btn  title-btn layui-btn-danger', 'y
 DROP TABLE IF EXISTS `routelist`;
 CREATE TABLE `routelist` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` char(20) NOT NULL,
-  `label` char(33) NOT NULL,
-  `path` char(25) NOT NULL,
-  `icon` char(20) DEFAULT NULL,
-  `axis` char(20) NOT NULL,
+  `name` char(10) NOT NULL,
+  `label` char(10) NOT NULL,
+  `path` char(255) NOT NULL,
+  `icon` char(255) DEFAULT NULL,
+  `axis` char(255) NOT NULL,
+  `sort` int(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `userName` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
@@ -143,10 +144,10 @@ CREATE TABLE `routelist` (
 -- ----------------------------
 -- Records of routelist
 -- ----------------------------
-INSERT INTO `routelist` VALUES ('1', 'index', '首页', '/admin', '', '$1');
-INSERT INTO `routelist` VALUES ('2', 'userManage', '用户管理', '/admin/userManage', '', '$1');
-INSERT INTO `routelist` VALUES ('3', 'userList', '用户列表', '/admin/userManage/list', '', '$1$2');
-INSERT INTO `routelist` VALUES ('4', 'addList', '新增用户', '/admin/userManage/add', '', '$1$2');
+INSERT INTO `routelist` VALUES ('1', 'index', '首页', '/admin', '', '$1', '0');
+INSERT INTO `routelist` VALUES ('2', 'userManage', '用户管理', '/admin/userManage', '', '$1', '0');
+INSERT INTO `routelist` VALUES ('3', 'userList', '用户列表', '/admin/userManage/list', '', '$1$2', '0');
+INSERT INTO `routelist` VALUES ('4', 'addList', '新增用户', '/admin/userManage/add', '', '$1$2', '0');
 
 -- ----------------------------
 -- Table structure for user
