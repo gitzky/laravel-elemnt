@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-03-30 18:19:22
+Date: 2019-04-01 18:31:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,6 +36,27 @@ CREATE TABLE `comments` (
 -- ----------------------------
 -- Records of comments
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(10) NOT NULL,
+  `label` char(10) NOT NULL,
+  `path` char(255) NOT NULL,
+  `icon` char(255) DEFAULT NULL,
+  `axis` char(255) DEFAULT NULL,
+  `sort` int(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES ('1', '首页', '首页', '/admin/index', null, '', '1');
+INSERT INTO `menu` VALUES ('2', '1', '1', '1', '1', '', '1');
 
 -- ----------------------------
 -- Table structure for notice
@@ -126,30 +147,6 @@ INSERT INTO `post_type` VALUES ('7', 'layui-btn  title-btn layui-btn-primary', '
 INSERT INTO `post_type` VALUES ('8', 'layui-btn  title-btn layui-btn-danger', 'y', 'Python');
 
 -- ----------------------------
--- Table structure for routelist
--- ----------------------------
-DROP TABLE IF EXISTS `routelist`;
-CREATE TABLE `routelist` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` char(10) NOT NULL,
-  `label` char(10) NOT NULL,
-  `path` char(255) NOT NULL,
-  `icon` char(255) DEFAULT NULL,
-  `axis` char(255) NOT NULL,
-  `sort` int(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `userName` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of routelist
--- ----------------------------
-INSERT INTO `routelist` VALUES ('1', 'index', '首页', '/admin', '', '$1', '0');
-INSERT INTO `routelist` VALUES ('2', 'userManage', '用户管理', '/admin/userManage', '', '$1', '0');
-INSERT INTO `routelist` VALUES ('3', 'userList', '用户列表', '/admin/userManage/list', '', '$1$2', '0');
-INSERT INTO `routelist` VALUES ('4', 'addList', '新增用户', '/admin/userManage/add', '', '$1$2', '0');
-
--- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -171,7 +168,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '1234', 'admin@qq.com', '男', '正常使用', '超级管理员', '小元元', '2020-06-13 12:55:11', '/img/default.png');
+INSERT INTO `user` VALUES ('1', 'admin', '1234', 'admin@qq.com', '男', '正常使用', '超级管理员', '小元元', '2019-04-01 14:57:21', '/img/001.png');
 INSERT INTO `user` VALUES ('2', 'zhangsan1', '123456', '1io57@qq.com', '女', '正常使用', '注册会员', '我是张三1号', '2009-12-26 03:25:05', '/img/default.png');
 INSERT INTO `user` VALUES ('3', 'zhangsan2', '123456', '4f3g4@qq.com', '男', '限制用户', '超级会员', '我是张三2号', '2011-09-01 07:19:50', '/img/default.png');
 INSERT INTO `user` VALUES ('4', 'zhangsan3', '123456', 'qaic7@qq.com', '女', '正常使用', '注册会员', '我是张三3号', '2014-09-21 13:27:49', '/img/default.png');
