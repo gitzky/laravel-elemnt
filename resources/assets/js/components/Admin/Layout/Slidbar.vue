@@ -1,11 +1,9 @@
 <template>
-  <div class="pull-left" style="height:100vh;background-color: #555;overflow-y: auto;overflow-x: hidden;">
+  <div class="pull-left" style="height:100vh;background-color: rgb(48, 65, 86);;overflow-y: auto;overflow-x: hidden;">
     <el-menu
       :default-active="defaultPath"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
-      background-color="#555"
+      background-color="#304156"
       text-color="#fff"
       active-text-color="#ffd04b"
       router
@@ -25,16 +23,10 @@
           <el-menu-item index="/admin/userManage/addUser"><i class="el-icon-star-on"></i>新增用户</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="/admin/menuManage">
-        <template slot="title">
-         <i class="el-icon-menu"></i>
-        <span slot="title">菜单管理</span>
-        </template> 
-        <el-menu-item-group>
-          <el-menu-item index="/admin/menuManage/menuList"><i class="el-icon-menu"></i>菜单列表</el-menu-item>
-          <el-menu-item index="/admin/menuManage/addMenu"><i class="el-icon-menu"></i>新增菜单</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
+      <el-menu-item name="index" index="/admin/menuManage/menuList" >
+          <i class="el-icon-menu"></i>
+          <span slot="title">菜单列表</span>
+      </el-menu-item>
       <el-submenu index="2">
         <template slot="title">
          <i class="el-icon-setting"></i>
@@ -61,12 +53,11 @@
       this.defaultPath = this.$route.path
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+      
+      loadData() {
+        
       },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
+      
       handleSelect(key, keyPath) {
         console.log(key, keyPath)
         var str = "/admin/index"
@@ -75,3 +66,15 @@
     }
   }
 </script>
+<style>
+ .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
+.el-submenu .el-menu-item {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 45px;
+    min-width: 100px;
+}
+</style>

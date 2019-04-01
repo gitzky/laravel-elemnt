@@ -38,10 +38,13 @@ class Controller extends BaseController
     }
     
     // 增
-    public function add($req, $code, $res)
+    public function add($arg, $database)
     {
-        
-    }// 删
+        $res = DB::table($database)->insert($arg); 
+        $code = $res ? '0' : '10001';
+        echo $this->resData($code, $res);
+    }
+    // 删
     public function delById($arg)
     {
         
@@ -51,7 +54,7 @@ class Controller extends BaseController
         
     }
     //查
-    public function selListByParams($arg,$code,$database)
+    public function selListByParams($arg,$database)
     {
         $res = DB::table($database)->get();
         $data = array(
@@ -60,19 +63,15 @@ class Controller extends BaseController
             "pageSize" => 10,
             "total" => 1
         );
+        $code = $res ? '0' : '10001';
         echo $this->resData($code, $data);
     }
     //查
-    public function selById($arg,$code,$database)
+    public function selById($arg,$database)
     {
-       $res = DB::table($database)->where('id','=',$arg)->get();
-        $data = array(
-            "data" => $res,
-            "pageNum" => 1,
-            "pageSize" => 10,
-            "total" => 1
-        );
-        echo $this->resData($code, $data);
+       $res = DB::table($database)->where('id','=',$arg)->get()[0];
+       $code = $res ? '0' : '10001';
+       echo $this->resData($code, $res);
     }
    
     

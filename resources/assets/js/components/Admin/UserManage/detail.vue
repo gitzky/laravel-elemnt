@@ -41,9 +41,8 @@ export default {
     },
     loadData(id) {
       this.$store.dispatch('userManage/selUserById', { id }).then(response => {
-        this.tableData = response.data[0]
-        this.memberInfo = response.memberPersonResForm
-        console.log(response.data)
+        this.tableData = response
+        console.log(response)
       })
     }
   }
@@ -74,22 +73,28 @@ export default {
     display: flex;align-items: center
   }
   .userinfo-container #mo .close{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    font-size: 38px;
-    font-weight: bold;
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    color:#ccc;
-    text-align: center;
-    background-color: rgba(0,0,0,0.3);
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      font-weight: bold;
+      position: fixed;
+      top: -50px;
+      right: -50px;
+      background-color: rgba(0,0,0,0.7);
   }
   .userinfo-container #mo .close .x{
+    font-size: 28px;
+    font-weight: bold;
+    display: block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    color:#bbb;
     position: absolute;
-    top: 50px;
-    right: 55px
+    bottom:4px;
+    left: 8px;
   }
   .userinfo-container #mo .close:hover,
   .userinfo-container #mo .close:focus{
@@ -98,7 +103,7 @@ export default {
   }
   .userinfo-container #mo .close:hover .x{
     -webkit-transform:rotate(90deg);
-    transform:rotate(180deg);
+    transform:rotate(270deg);
     -webkit-transition:-webkit-transform .5s linear;
     transition:transform .5s linear;
   }

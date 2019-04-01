@@ -41,19 +41,7 @@
   }
 </script>
 <style>
-  .el-menu-item .red i{
-    color: #409EFF
-  }
- .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-  }
-.el-submenu .el-menu-item {
-    height: 50px;
-    line-height: 50px;
-    padding: 0 45px;
-    min-width: 100px;
-}
+
 .app{
     position: relative;
 }

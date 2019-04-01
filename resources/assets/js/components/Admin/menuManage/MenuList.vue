@@ -1,31 +1,28 @@
 <template>
-  <div class="app-container" style="padding:20px 30px">
+  <div style="padding:20px 30px">
     <el-header style="height:40px;line-height:40px;font-weight:bold;padding-left:10px;background:#ccc">
       菜单管理
-      <el-button type="primary" size="mini" style="float:right;margin-top:6px;" icon="el-icon-plus" @click="addRole">新增菜单</el-button>
+      <el-button type="primary" size="mini" style="float:right;margin-top:6px;" icon="el-icon-plus" @click="addMenu">新增菜单</el-button>
     </el-header>
     <div style="padding:20px;border:1px solid #ebeef5">
-      <el-table v-loading="loading" :data="tableData" border style="width: 100%;text-align:center;" element-loading-text="Loading">
+      <el-table v-loading="loading" :data="tableData" border element-loading-text="Loading" style="text-align: center;">
         <el-table-column label="序号" width="80" header-align="center">
           <template slot-scope="scope">{{ 1 + scope.$index + (pagination.currentPage-1)*pagination.pageSize }}</template>
         </el-table-column>
-        <el-table-column label="功能ID" header-align="center" show-overflow-tooltip>
+        <el-table-column label="ID" header-align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="类型" header-align="center" show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.type }}</template>
-        </el-table-column>
-        <el-table-column label="名称" header-align="center" show-overflow-tooltip>
+        <el-table-column label="名称" header-align="center">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
-        <el-table-column label="url" header-align="center" show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.url }}</template>
+        <el-table-column label="url" header-align="center" >
+          <template slot-scope="scope">{{ scope.row.path }}</template>
         </el-table-column>
-        <el-table-column label="图标" header-align="center" show-overflow-tooltip>
+        <el-table-column label="图标" header-align="center">
           <template slot-scope="scope">{{ scope.row.mobIcon }}</template>
         </el-table-column>
-        <el-table-column label="父功能ID" header-align="center" show-overflow-tooltip>
-          <template slot-scope="scope">{{ scope.row.parentFuncId }}</template>
+        <el-table-column label="父功能ID" header-align="center">
+          <template slot-scope="scope">{{ scope.row.parentId }}</template>
         </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
@@ -63,7 +60,7 @@ export default {
     }
   },
   created() {
-    // this.loadData()
+    this.loadData()
   },
   methods: {
 
@@ -72,9 +69,9 @@ export default {
         path: `/role/editFunc/${row.id}`
       })
     },
-    addRole() {
+    addMenu() {
       this.$router.push({
-        path: `role/addFunc`
+        path: `/admin/menuManage/addMenu`
       })
     },
     del(row) {
@@ -109,7 +106,7 @@ export default {
         pageSize: this.pagination.pageSize,
         subSystemIds: 6
       }
-      this.$store.dispatch('role/selFuncList', formCon).then(response => {
+      this.$store.dispatch('menu/selMenuList', formCon).then(response => {
         if (response) {
           this.loading = false
           this.pagination.total = response.total
@@ -128,8 +125,8 @@ export default {
   }
 }
 </script>
-<style scoped>
-.el-form-item--medium .el-form-item__content, .el-form-item--medium .el-form-item__label{padding-left:15px;}
-.el-table td, .el-table th.is-leaf{text-align:center;}
-.el-table--border th{background:#fafafa;}
+<style>
+  .el-table td{
+    text-align: center;
+  }
 </style>
