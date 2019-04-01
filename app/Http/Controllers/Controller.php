@@ -44,15 +44,21 @@ class Controller extends BaseController
         $code = $res ? '0' : '10001';
         echo $this->resData($code, $res);
     }
+    
     // 删
-    public function delById($arg)
+    public function delById($arg, $database)
     {
-        
-    }// 改
+        $res = DB::table($database)->delete($arg);
+        $code = $res ? '0' : '10001';
+        echo $this->resData($code, $res);
+    }
+    
+    // 改
     public function updById($arg)
     {
         
     }
+    
     //查
     public function selListByParams($arg,$database)
     {

@@ -53,7 +53,7 @@ let routes=[
         component: require("./components/Admin/menuManage/MenuList")
     },
     {
-        path: "/admin/menuManage/addMenu",
+        path: "/admin/menuManage/addMenu/:id",
         component:require("./components/Admin/menuManage/AddMenu")
     }
 ]

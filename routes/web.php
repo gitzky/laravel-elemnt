@@ -52,6 +52,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/menu/selMenuList',"MenuController@selMenuList");
   Route::any('/api/menu/selMenuById',"MenuController@selMenuById");
   Route::any('/api/menu/updMenuById',"MenuController@updMenuById");
+  Route::any('/api/menu/delMenuById',"MenuController@delMenuById");
 
 });
 

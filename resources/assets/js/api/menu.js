@@ -16,3 +16,7 @@ export function selMenuById(arg) {
 export function updMenuById(arg) {
   return request.post('admin/api/menu/updMenuById',arg)
 }
+
+export function delMenuById(arg) {
+  return request.post('admin/api/menu/delMenuById',arg)
+}

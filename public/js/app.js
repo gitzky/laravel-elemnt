@@ -102673,7 +102673,7 @@ var routes = [{
     path: "/admin/menuManage/menuList",
     component: __webpack_require__(253)
 }, {
-    path: "/admin/menuManage/addMenu",
+    path: "/admin/menuManage/addMenu/:id",
     component: __webpack_require__(258)
 }];
 
@@ -105308,12 +105308,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     edit: function edit(row) {
       this.$router.push({
-        path: '/role/editFunc/' + row.id
+        path: '/admin/menuManage/addMenu/' + row.id
       });
     },
     addMenu: function addMenu() {
       this.$router.push({
-        path: '/admin/menuManage/addMenu'
+        path: '/admin/menuManage/addMenu/null'
       });
     },
     del: function del(row) {
@@ -105325,7 +105325,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         type: 'warning'
       }).then(function () {
         _this.loading = true;
-        _this.$store.dispatch('role/delAuthFuncById', {
+        _this.$store.dispatch('menu/delMenuById', {
           id: row.id
         }).then(function (response) {
           _this.loading = false;
@@ -105504,6 +105504,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      id: '',
       columnForm: {
         name: '',
         url: '',
@@ -105514,24 +105515,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       optiopnFunc: []
     };
   },
+  created: function created() {
+    this.id = this.$route.params.id;
+    console.log(this.id);
+    this.id && this.getData(this.id);
+  },
 
   methods: {
     onCancel: function onCancel() {
       this.$router.back();
     },
-    submitForm: function submitForm(formName, columnForm) {
+    getData: function getData(id) {
       var _this = this;
+
+      this.$store.dispatch('menu/selMenuById', { id: id }).then(function (res) {
+        console.log('r', res);
+        _this.columnForm = {
+          name: res.data.name,
+          url: res.data.path,
+          icon: res.data.icon,
+          sort: res.data.sort,
+          parentId: res.data.parentId
+        };
+      });
+    },
+    submitForm: function submitForm(formName, columnForm) {
+      var _this2 = this;
 
       this.$refs[formName].validate(function (valid) {
         if (valid) {
           var formCon = columnForm;
 
-          _this.$store.dispatch('menu/addMenu', formCon).then(function (response) {
-            _this.$message({
+          _this2.$store.dispatch('menu/addMenu', formCon).then(function (response) {
+            _this2.$message({
               type: 'success',
-              message: '发布成功!'
+              message: '新增成功!'
             });
-            _this.$router.push({
+            _this2.$router.push({
               path: '/admin/menuManage/menuList'
             });
           });
@@ -105883,7 +105903,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["c" /* selMenuList */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["d" /* selMenuList */])(arg);
 
               case 2:
                 response = _context2.sent;
@@ -105911,7 +105931,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["b" /* selMenuById */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["c" /* selMenuById */])(arg);
 
               case 2:
                 response = _context3.sent;
@@ -105939,7 +105959,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["d" /* updMenuById */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["e" /* updMenuById */])(arg);
 
               case 2:
                 response = _context4.sent;
@@ -105958,6 +105978,34 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
 
       return updMenuById;
+    }(),
+    delMenuById: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee5(context, arg) {
+        var response;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_menu__["b" /* delMenuById */])(arg);
+
+              case 2:
+                response = _context5.sent;
+                return _context5.abrupt('return', response);
+
+              case 4:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function delMenuById(_x9, _x10) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return delMenuById;
     }()
   }
 });
@@ -105968,9 +106016,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = addMenu;
-/* harmony export (immutable) */ __webpack_exports__["c"] = selMenuList;
-/* harmony export (immutable) */ __webpack_exports__["b"] = selMenuById;
-/* harmony export (immutable) */ __webpack_exports__["d"] = updMenuById;
+/* harmony export (immutable) */ __webpack_exports__["d"] = selMenuList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = selMenuById;
+/* harmony export (immutable) */ __webpack_exports__["e"] = updMenuById;
+/* harmony export (immutable) */ __webpack_exports__["b"] = delMenuById;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__untils_request__ = __webpack_require__(81);
 
 
@@ -105988,6 +106037,10 @@ function selMenuById(arg) {
 
 function updMenuById(arg) {
   return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/menu/updMenuById', arg);
+}
+
+function delMenuById(arg) {
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/menu/delMenuById', arg);
 }
 
 /***/ }),

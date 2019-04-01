@@ -2,7 +2,8 @@ import {
   addMenu,
   selMenuList,
   selMenuById,
-  updMenuById
+  updMenuById,
+  delMenuById
 } from '../../api/menu'
 
 export default {
@@ -27,5 +28,10 @@ export default {
       const response = await updMenuById(arg)
       return response
     },
+    
+    async delMenuById(context, arg) {
+      const response = await delMenuById(arg)
+      return response
+    }
   }
 }

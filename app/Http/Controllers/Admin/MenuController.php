@@ -30,8 +30,9 @@ class MenuController extends Controller
     
     public function selMenuById(Request $request)
     {
-        $data =  $request->except('_token') ;
-        $id = $data['id'];
+       $data =  $request->except('_token') ;
+       $id = $data['id'];
+       $this->selById($id, 'menu');
         
     }
     
@@ -39,6 +40,12 @@ class MenuController extends Controller
     {
         $data =  $request->except('_token') ;
         $id = $data['id'];
-        
+    }
+    
+    public function delMenuById(Request $request)
+    {
+        $data =  $request->except('_token') ;
+        $id = $data['id'];
+        $this->delById($id, 'menu');
     }
 }

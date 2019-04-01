@@ -66,12 +66,12 @@ export default {
 
     edit(row) {
       this.$router.push({
-        path: `/role/editFunc/${row.id}`
+        path: `/admin/menuManage/addMenu/${row.id}`
       })
     },
     addMenu() {
       this.$router.push({
-        path: `/admin/menuManage/addMenu`
+        path: `/admin/menuManage/addMenu/null`
       })
     },
     del(row) {
@@ -81,7 +81,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.loading = true
-        this.$store.dispatch('role/delAuthFuncById', {
+        this.$store.dispatch('menu/delMenuById', {
           id: row.id
         }).then(response => {
           this.loading = false

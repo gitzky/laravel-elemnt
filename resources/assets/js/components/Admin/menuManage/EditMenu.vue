@@ -33,7 +33,6 @@
 export default {
   data() {
     return {
-      id:'',
       columnForm: {
         name: '',
         url: '',
@@ -44,32 +43,15 @@ export default {
       optiopnFunc:[]
     }
   },
-  created() {
-    this.id = this.$route.params.id
-    console.log(this.id)
-    this.id && this.getData(this.id)
-  },
   methods: {
     onCancel() {
       this.$router.back()
-    },
-    getData(id) {
-      this.$store.dispatch('menu/selMenuById', { id }).then(res => {
-        console.log('r',res)
-        this.columnForm = {
-          name: res.data.name,
-          url: res.data.path,
-          icon: res.data.icon,
-          sort: res.data.sort,
-          parentId: res.data.parentId
-        }
-      })
     },
     submitForm(formName, columnForm) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const formCon = columnForm
-          
+
           this.$store.dispatch('menu/addMenu', formCon).then(response => {
             this.$message({
               type: 'success',
