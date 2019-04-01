@@ -9,15 +9,16 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     //用户列表
-   public function getUserList(Request $request, $arg)
+   public function getUserList(Request $request)
    {
-      
-       $this->selListByParams($arg,'user');
+       $data =  $request->except('_token') ;
+       $this->selListByParams($data,'user');
    }
    //用户详情
-   public function getUserDetail($arg)
+   public function getUserDetail(Request $request)
    {
-       $arg = json_decode($arg)->id;
-       $this->selById($arg,'user');
+       $data =  $request->except('_token') ;
+       $id = $data['id'];
+       $this->selById($id,'user');
    }
 }

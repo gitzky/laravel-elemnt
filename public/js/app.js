@@ -101432,12 +101432,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 // 查会员列表
 function selUserList(arg) {
-  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/user/selUserList/' + JSON.stringify(arg), arg);
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/user/selUserList', arg);
 }
 
 // 查会员详情
 function selUserById(arg) {
-  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/user/selUserById/' + JSON.stringify(arg), arg);
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('admin/api/user/selUserById', arg);
 }
 
 /***/ }),

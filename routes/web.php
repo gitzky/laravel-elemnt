@@ -45,8 +45,8 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/logout',"LoginController@logout");
   Route::any('/api/getMemberInfo',"AdminController@getMemberInfo");
   // 用户
-  Route::any('/api/user/selUserList/{params}',"UserController@getUserList");
-  Route::any('/api/user/selUserById/{params}',"UserController@getUserDetail");
+  Route::any('/api/user/selUserList',"UserController@getUserList");
+  Route::any('/api/user/selUserById',"UserController@getUserDetail");
   
   Route::any('/api/menu/addMenu',"MenuController@addMenu");
   Route::any('/api/menu/selMenuList',"MenuController@selMenuList");
