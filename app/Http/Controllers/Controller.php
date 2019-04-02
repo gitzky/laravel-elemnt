@@ -54,20 +54,40 @@ class Controller extends BaseController
     }
     
     // 改
-    public function updById($arg)
+    public function updById($id, $arg, $database)
     {
-        
+       
+        $res = DB::table($database)
+            ->where('id', $id)
+            ->update($arg);
+        $code = $res ? '0' : '10001';
+        echo $this->resData($code, $res);
     }
     
     //查
-    public function selListByParams($arg,$database)
+    public function selListByParams($pageNum, $pageSize, $reqFormList, $database)
     {
-        $res = DB::table($database)->get();
+        $pageNum =  $pageNum ? $pageNum : 1;
+        $pageSize = $pageSize ? $pageSize : 100;
+        $step = ($pageNum - 1) * $pageSize;
+        $count = DB::table($database)->count();
+        if ($reqFormList) {
+            $res = DB::table($database)
+                ->skip($step)
+                ->take($pageSize)
+                ->where($reqFormList)
+                ->get();
+        } else {
+           $res = DB::table($database)
+               ->skip($step)
+               ->take($pageSize)
+               ->get(); 
+        }
         $data = array(
             "list" => $res,
-            "pageNum" => 1,
-            "pageSize" => 10,
-            "total" => 1
+            "pageNum" => $pageNum,
+            "pageSize" => $pageSize,
+            "total" => $count
         );
         $code = $res ? '0' : '10001';
         echo $this->resData($code, $data);

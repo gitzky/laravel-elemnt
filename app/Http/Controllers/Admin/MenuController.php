@@ -14,9 +14,9 @@ class MenuController extends Controller
         $req = array(
             "name"=>$data['name'],
             "label"=>$data['name'],
-            "path"=>$data['url'],
+            "path"=>$data['path'],
             "icon"=>$data['icon'],
-            "axis"=>'',
+            "icon"=>$data['icon'],
             "sort"=>$data['sort']
         );
         $this->add($req,'menu');
@@ -24,8 +24,12 @@ class MenuController extends Controller
     
     public function selMenuList(Request $request)
     {
-        $data =  $request->except('_token') ;
-        $this->selListByParams($data,'menu');
+        $pageNum = $request->input('pageNum');
+        $pageSize = $request->input('pageSize');
+        $reqFormList = $request->input('reqFormList');
+        
+        $this->selListByParams($pageNum, $pageSize, $reqFormList, 'menu');
+        
     }
     
     public function selMenuById(Request $request)
@@ -40,6 +44,15 @@ class MenuController extends Controller
     {
         $data =  $request->except('_token') ;
         $id = $data['id'];
+        $req = array(
+            "name"=>$data['name'],
+            "label"=>$data['name'],
+            "path"=>$data['path'],
+            "icon"=>$data['icon'],
+            "axis"=>$data['axis'],
+            "sort"=>$data['sort']
+        );
+        $this->updById($id,$req, 'menu');
     }
     
     public function delMenuById(Request $request)

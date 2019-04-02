@@ -4,8 +4,8 @@
       <el-form-item label="名称：" prop="name" :rules="{ required: true, message: '名称不能为空', trigger: 'blur' }">
         <el-input v-model="columnForm.name" placeholder="请输入名称" style="width:400px;"/>
       </el-form-item>
-      <el-form-item label="url：" prop="url" :rules="{ required: true, message: '地址不能为空', trigger: 'blur' }">
-        <el-input v-model="columnForm.url" placeholder="请输入url" style="width:400px;"/>
+      <el-form-item label="path：" prop="path" :rules="{ required: true, message: '地址不能为空', trigger: 'blur' }">
+        <el-input v-model="columnForm.path" placeholder="请输入path" style="width:400px;"/>
       </el-form-item>
       <el-form-item label="图标：" prop="icon">
         <el-input v-model="columnForm.icon" placeholder="请输入图标" style="width:400px;"/>
@@ -14,16 +14,16 @@
         <el-input v-model="columnForm.sort" placeholder="请输入级别" style="width:400px;"/>
       </el-form-item>
       <el-form-item label="父级菜单：" prop="parentId">
-        <el-select v-model="columnForm.parentId" placeholder="请选择">
+        <el-select v-model="columnForm.parentId" placeholder="请选择" @change="swichPrentId">
           <el-option
-            v-for="item in optiopnFunc"
-            :key="item.value"
+            v-for="item in parentList"
+            :key="item.id"
             :label="item.label"
-            :value="item.value"/>
+            :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item style="padding-top:30px;">
-        <el-button type="primary" @click="submitForm('columnForm', columnForm)">新增菜单</el-button>
+        <el-button type="primary" @click="submitForm('columnForm', columnForm)">{{ columnForm.id ? '修改菜单':'新增菜单' }}</el-button>
         <el-button type="primary" @click.stop="onCancel">返回</el-button>
       </el-form-item>
     </el-form>
@@ -33,47 +33,61 @@
 export default {
   data() {
     return {
-      id:'',
       columnForm: {
+        id:'',
         name: '',
-        url: '',
+        path: '',
         icon: '',
         sort: '',
+        axis: '',
         parentId: ''
       },
-      optiopnFunc:[]
+      parentList:[]
     }
   },
   created() {
-    this.id = this.$route.params.id
-    console.log(this.id)
-    this.id && this.getData(this.id)
+    this.columnForm.id = this.$route.params.id == 'null' ? '' : this.$route.params.id 
+    this.columnForm.id && this.getData(this.columnForm.id)
+    this.getPrentData()
   },
   methods: {
+    swichPrentId(value) {
+      console.log(value)
+    },
     onCancel() {
       this.$router.back()
     },
     getData(id) {
       this.$store.dispatch('menu/selMenuById', { id }).then(res => {
-        console.log('r',res)
-        this.columnForm = {
-          name: res.data.name,
-          url: res.data.path,
-          icon: res.data.icon,
-          sort: res.data.sort,
-          parentId: res.data.parentId
-        }
+        this.columnForm.name = res.data.name
+        this.columnForm.path = res.data.path
+        this.columnForm.icon = res.data.icon
+        this.columnForm.sort = res.data.sort
+        this.columnForm.parentId = res.data.parentId && parseInt(res.data.parentId)
       })
+    },
+    getPrentData() {
+      const formCon = {
+        reqFormList: {
+          "axis": "$1",
+        }
+      }
+      this.$store.dispatch('menu/selMenuList', formCon).then(response => {
+        console.log(response,'11')
+        this.parentList = response.list
+      })
+      
     },
     submitForm(formName, columnForm) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.columnForm.axis = this.columnForm.parentId?'$1$' + this.columnForm.parentId : '$1'
           const formCon = columnForm
-          
-          this.$store.dispatch('menu/addMenu', formCon).then(response => {
+          let api = this.columnForm.id ? 'menu/updMenuById' :'menu/addMenu' 
+          this.$store.dispatch(api, formCon).then(response => {
             this.$message({
               type: 'success',
-              message: '新增成功!'
+              message: '操作成功!'
             })
             this.$router.push({
               path: '/admin/menuManage/menuList'
@@ -87,7 +101,3 @@ export default {
   }
 }
 </script>
-<style>
-.el-table td, .el-table th.is-leaf{text-align:center;}
-.el-table--border th{background:#fafafa;}
-</style>

@@ -70,6 +70,7 @@ if (domain.split('#/')[0] != 'http://www.newblog.com/admin') {
    }
 }
 
+
 export default new VueRouter({
     routes
 })

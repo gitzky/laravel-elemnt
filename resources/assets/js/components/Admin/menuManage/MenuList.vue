@@ -15,14 +15,14 @@
         <el-table-column label="名称" header-align="center">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
-        <el-table-column label="url" header-align="center" >
+        <el-table-column label="url" header-align="center" width="240px" >
           <template slot-scope="scope">{{ scope.row.path }}</template>
         </el-table-column>
         <el-table-column label="图标" header-align="center">
-          <template slot-scope="scope">{{ scope.row.mobIcon }}</template>
+          <template slot-scope="scope">{{ scope.row.icon }}</template>
         </el-table-column>
-        <el-table-column label="父功能ID" header-align="center">
-          <template slot-scope="scope">{{ scope.row.parentId }}</template>
+        <el-table-column label="功能ID" header-align="center">
+          <template slot-scope="scope">{{ scope.row.axis }}</template>
         </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
@@ -103,8 +103,7 @@ export default {
       var formCon = {}
       formCon = {
         pageNum: this.pagination.currentPage,
-        pageSize: this.pagination.pageSize,
-        subSystemIds: 6
+        pageSize: this.pagination.pageSize
       }
       this.$store.dispatch('menu/selMenuList', formCon).then(response => {
         if (response) {
@@ -125,8 +124,12 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
   .el-table td{
     text-align: center;
   }
+  td.el-table_1_column_4{
+    text-align: left;
+    padding-left: 10px;
+  }  
 </style>

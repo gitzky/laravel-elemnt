@@ -161,9 +161,10 @@ export default {
     // 获取数据
     loadData() {
       this.loading = true
-      const formCon = {}
-      const { pageNum, pageSize } = { pageNum: this.pagination.currentPage, pageSize: this.pagination.pageSize }
-      Object.assign(formCon, this.form, { pageNum, pageSize })
+      const formCon = {
+        pageNum: this.pagination.currentPage,
+        pageSize: this.pagination.pageSize
+      }
       this.$store.dispatch('userManage/selUserList', formCon).then(response => {
         this.loading = false
         if(response.code === '0') {
@@ -177,7 +178,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .el-table td,
 .el-table th.is-leaf {
   text-align: center;

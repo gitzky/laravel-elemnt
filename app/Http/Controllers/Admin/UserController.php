@@ -11,8 +11,11 @@ class UserController extends Controller
     //用户列表
    public function getUserList(Request $request)
    {
-       $data =  $request->except('_token') ;
-       $this->selListByParams($data,'user');
+       $pageNum = $request->input('pageNum');
+       $pageSize = $request->input('pageSize');
+       $reqFormList = $request->input('reqFormList');
+       
+       $this->selListByParams($pageNum, $pageSize, $reqFormList,'user');
    }
    //用户详情
    public function getUserDetail(Request $request)
