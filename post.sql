@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-04-02 19:26:14
+Date: 2019-04-03 18:28:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,14 +51,16 @@ CREATE TABLE `menu` (
   `sort` int(20) DEFAULT NULL,
   `parentId` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '首页', '首页', '/admin/index', 'list', '$1', '1', null);
+INSERT INTO `menu` VALUES ('10', '文章管理', '文章管理', '/admin/postManage', 'list', '$1', '1', null);
 INSERT INTO `menu` VALUES ('5', '用户管理', '用户管理', '/admin/userManage', 'list', '$1', '2', null);
 INSERT INTO `menu` VALUES ('6', '用户列表', '用户列表', '/admin/userManage/index', 'list', '$1$5', '3', '5');
+INSERT INTO `menu` VALUES ('11', '文章列表', '文章列表', '/admin/postManage/postList', 'list', '$1$10', '1', '10');
+INSERT INTO `menu` VALUES ('12', '文章类型', '文章类型', '/admin/postManage/postType', 'list', '$1$10', '1', '10');
 
 -- ----------------------------
 -- Table structure for notice
@@ -170,7 +172,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '1234', 'admin@qq.com', '男', '正常使用', '超级管理员', '小元元', '2019-04-02 15:58:22', '/img/001.png');
+INSERT INTO `user` VALUES ('1', 'admin', '1234', 'admin@qq.com', '男', '正常使用', '超级管理员', '小元元', '2019-04-03 16:37:02', '/img/001.png');
 INSERT INTO `user` VALUES ('2', 'zhangsan1', '123456', '1io57@qq.com', '女', '正常使用', '注册会员', '我是张三1号', '2009-12-26 03:25:05', '/img/default.png');
 INSERT INTO `user` VALUES ('3', 'zhangsan2', '123456', '4f3g4@qq.com', '男', '限制用户', '超级会员', '我是张三2号', '2011-09-01 07:19:50', '/img/default.png');
 INSERT INTO `user` VALUES ('4', 'zhangsan3', '123456', 'qaic7@qq.com', '女', '正常使用', '注册会员', '我是张三3号', '2014-09-21 13:27:49', '/img/default.png');

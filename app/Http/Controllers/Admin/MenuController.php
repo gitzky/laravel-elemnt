@@ -16,7 +16,8 @@ class MenuController extends Controller
             "label"=>$data['name'],
             "path"=>$data['path'],
             "icon"=>$data['icon'],
-            "icon"=>$data['icon'],
+            "axis"=>$data['axis'],
+            "parentId"=>$data['parentId'],
             "sort"=>$data['sort']
         );
         $this->add($req,'menu');
@@ -50,6 +51,7 @@ class MenuController extends Controller
             "path"=>$data['path'],
             "icon"=>$data['icon'],
             "axis"=>$data['axis'],
+            "parentId"=>$data['parentId'],
             "sort"=>$data['sort']
         );
         $this->updById($id,$req, 'menu');

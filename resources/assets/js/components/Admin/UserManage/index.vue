@@ -178,17 +178,10 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .el-table td,
 .el-table th.is-leaf {
   text-align: center;
 }
 
-.el-table--border th {
-  background: #fafafa;
-}
-
-.el-button+.el-button {
-  margin-left: 5px;
-}
 </style>

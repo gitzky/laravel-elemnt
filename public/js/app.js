@@ -102368,21 +102368,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['isOpen'],
   data: function data() {
     return {
       isCollapse: false,
-      defaultPath: '/admin/index'
+      defaultPath: '/admin/index',
+      routes: []
     };
   },
   created: function created() {
     this.defaultPath = this.$route.path;
+    this.loadData();
   },
 
   methods: {
-    loadData: function loadData() {},
+    loadData: function loadData() {
+      var _this = this;
+
+      this.$store.dispatch('menu/selMenuList').then(function (response) {
+        if (response) {
+          var routes = [];
+          response.list.forEach(function (item) {
+            if (item.axis == "$1") {
+              routes.push(item);
+            }
+          });
+          routes.forEach(function (val) {
+            val.children = [];
+            response.list.forEach(function (item) {
+              if (item.axis == "$1$" + val.id) {
+                val.children.push(item);
+              }
+            });
+          });
+          console.log(routes);
+          _this.routes = routes;
+          console.log(_this.routes);
+        }
+      });
+    },
     handleSelect: function handleSelect(key, keyPath) {
       console.log(key, keyPath);
       var str = "/admin/index";
@@ -102445,42 +102478,35 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c(
-            "el-submenu",
-            { attrs: { index: "/admin/userManage" } },
-            [
-              _c("template", { slot: "title" }, [
-                _c("i", { staticClass: "el-icon-star-on" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("用户管理")])
-              ]),
-              _vm._v(" "),
-              _c(
-                "el-menu-item-group",
-                [
-                  _c(
-                    "el-menu-item",
-                    { attrs: { index: "/admin/userManage/index" } },
-                    [
-                      _c("i", { staticClass: "el-icon-star-on" }),
-                      _vm._v("用户列表")
-                    ]
-                  ),
+          _vm._l(_vm.routes, function(items) {
+            return _c(
+              "el-submenu",
+              { key: items.id, attrs: { index: items.path } },
+              [
+                _c("template", { slot: "title" }, [
+                  _c("i", { staticClass: "el-icon-menu" }),
                   _vm._v(" "),
-                  _c(
-                    "el-menu-item",
-                    { attrs: { index: "/admin/userManage/addUser" } },
-                    [
-                      _c("i", { staticClass: "el-icon-star-on" }),
-                      _vm._v("新增用户")
-                    ]
-                  )
-                ],
-                1
-              )
-            ],
-            2
-          ),
+                  _c("span", [_vm._v(_vm._s(items.label))])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "el-menu-item-group",
+                  _vm._l(items.children, function(item, index) {
+                    return _c(
+                      "el-menu-item",
+                      { key: index, attrs: { index: item.path } },
+                      [
+                        _c("i", { staticClass: "el-icon-menu" }),
+                        _vm._v(_vm._s(item.label))
+                      ]
+                    )
+                  }),
+                  1
+                )
+              ],
+              2
+            )
+          }),
           _vm._v(" "),
           _c(
             "el-menu-item",
@@ -102496,7 +102522,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "el-submenu",
-            { attrs: { index: "2" } },
+            { attrs: { index: "2", open: "false" } },
             [
               _c("template", { slot: "title" }, [
                 _c("i", { staticClass: "el-icon-setting" }),
@@ -102504,36 +102530,12 @@ var render = function() {
                 _c("span", { attrs: { slot: "title" }, slot: "title" }, [
                   _vm._v("设置")
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "el-menu-item-group",
-                [
-                  _c(
-                    "el-menu-item",
-                    { attrs: { index: "/admin/set/menuSet" } },
-                    [
-                      _c("i", { staticClass: "el-icon-setting" }),
-                      _vm._v("菜单设置")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-menu-item",
-                    { attrs: { index: "/admin/set/roleSet" } },
-                    [
-                      _c("i", { staticClass: "el-icon-setting" }),
-                      _vm._v("权限设置")
-                    ]
-                  )
-                ],
-                1
-              )
+              ])
             ],
             2
           )
         ],
-        1
+        2
       )
     ],
     1
@@ -102748,8 +102750,8 @@ var render = function() {
             _vm._v("消息中心")
           ]),
           _vm._v(" "),
-          _c("el-menu-item", { attrs: { index: "/admin/order" } }, [
-            _vm._v("订单管理")
+          _c("el-menu-item", { attrs: { index: "/admin/set" } }, [
+            _vm._v("设置中心")
           ]),
           _vm._v(" "),
           _c(
@@ -104569,19 +104571,19 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(279)
+  __webpack_require__(250)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(252)
 /* template */
-var __vue_template__ = __webpack_require__(281)
+var __vue_template__ = __webpack_require__(253)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3eb3cf4a"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -104614,8 +104616,46 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 250 */,
-/* 251 */,
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(251);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("4f01c60b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3eb3cf4a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3eb3cf4a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.el-table td,\r\n.el-table th.is-leaf {\r\n  text-align: center;\n}\r\n\r\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 252 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -104815,7 +104855,352 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 253 */,
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "app-container", staticStyle: { padding: "20px 0" } },
+    [
+      _c(
+        "el-form",
+        {
+          ref: "form",
+          staticStyle: { border: "1px solid #ebeef5", "margin-bottom": "20px" },
+          attrs: {
+            model: _vm.form,
+            inline: true,
+            size: "medium",
+            "label-width": "100px"
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticStyle: {
+                height: "40px",
+                "line-height": "40px",
+                "font-weight": "bold",
+                "padding-left": "10px",
+                "background-color": "#ccc",
+                "margin-bottom": "20px"
+              }
+            },
+            [_vm._v("查询")]
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "姓名", prop: "realNameLike" } },
+            [
+              _c("el-input", {
+                attrs: { clearable: "", placeholder: "请输入姓名" },
+                model: {
+                  value: _vm.form.realNameLike,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "realNameLike", $$v)
+                  },
+                  expression: "form.realNameLike"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            { attrs: { label: "手机号", prop: "mobilePhone" } },
+            [
+              _c("el-input", {
+                attrs: { clearable: "", placeholder: "请输入手机号" },
+                model: {
+                  value: _vm.form.mobilePhone,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "mobilePhone", $$v)
+                  },
+                  expression: "form.mobilePhone"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            [
+              _c(
+                "el-button",
+                {
+                  staticStyle: { width: "90px" },
+                  attrs: { type: "primary" },
+                  on: {
+                    click: function($event) {
+                      return _vm.resetForm("form")
+                    }
+                  }
+                },
+                [_vm._v("重置")]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                { attrs: { type: "primary" }, on: { click: _vm.getData } },
+                [_vm._v("查询")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-header",
+        {
+          staticStyle: {
+            height: "40px",
+            "line-height": "40px",
+            "font-weight": "bold",
+            "padding-left": "10px",
+            "background-color": "#ccc"
+          }
+        },
+        [_vm._v("会员列表")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { padding: "20px", border: "1px solid #ebeef5" } },
+        [
+          _c(
+            "el-table",
+            {
+              directives: [
+                {
+                  name: "loading",
+                  rawName: "v-loading",
+                  value: _vm.loading,
+                  expression: "loading"
+                }
+              ],
+              staticStyle: { width: "100%", "text-align": "center" },
+              attrs: {
+                data: _vm.tableData,
+                border: "",
+                "element-loading-text": "Loading"
+              },
+              on: { "row-dblclick": _vm.goDetail }
+            },
+            [
+              _c("el-table-column", {
+                attrs: { label: "序号", "header-align": "center", width: "60" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          _vm._s(
+                            1 +
+                              scope.$index +
+                              (_vm.pagination.currentPage - 1) *
+                                _vm.pagination.pageSize
+                          )
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "会员编号", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.id || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "登录名", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.userName || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: {
+                  label: "性别",
+                  "header-align": "center",
+                  width: "60px"
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.userSex || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "备注", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.linksDesc || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "邮箱", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.userEmail || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "会员权限", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.userStatus || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "状态", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.userGrade || "——"))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: {
+                  label: "最后登录",
+                  "header-align": "center",
+                  width: "175px"
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          " " + _vm._s(scope.row.userEndTime || "——") + " "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "操作", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { type: "primary", size: "mini" },
+                            on: {
+                              click: function($event) {
+                                return _vm.memberDetail(scope.row.id)
+                              }
+                            }
+                          },
+                          [_vm._v("查看详情")]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        {
+          staticStyle: { "padding-top": "40px" },
+          attrs: { type: "flex", justify: "end" }
+        },
+        [
+          _c("el-pagination", {
+            attrs: {
+              "current-page": _vm.pagination.currentPage,
+              "page-size": _vm.pagination.pageSize,
+              total: _vm.pagination.total,
+              background: "",
+              layout: "total, sizes, prev, pager, next, jumper"
+            },
+            on: {
+              "update:currentPage": function($event) {
+                return _vm.$set(_vm.pagination, "currentPage", $event)
+              },
+              "update:current-page": function($event) {
+                return _vm.$set(_vm.pagination, "currentPage", $event)
+              },
+              "size-change": _vm.handleSizeChange,
+              "current-change": _vm.handleCurrentChange
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3eb3cf4a", module.exports)
+  }
+}
+
+/***/ }),
 /* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -105077,19 +105462,19 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(276)
+  __webpack_require__(260)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(262)
 /* template */
-var __vue_template__ = __webpack_require__(278)
+var __vue_template__ = __webpack_require__(263)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-46d5afe1"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -105122,8 +105507,46 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 260 */,
-/* 261 */,
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(261);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("342e198a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-46d5afe1\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MenuList.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-46d5afe1\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MenuList.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.el-table td,\r\n.el-table th.is-leaf {\r\n  text-align: center;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 262 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -105260,7 +105683,233 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 263 */,
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticStyle: { padding: "20px 30px" } },
+    [
+      _c(
+        "el-header",
+        {
+          staticStyle: {
+            height: "40px",
+            "line-height": "40px",
+            "font-weight": "bold",
+            "padding-left": "10px",
+            background: "#ccc"
+          }
+        },
+        [
+          _vm._v("\n    菜单管理\n    "),
+          _c(
+            "el-button",
+            {
+              staticStyle: { float: "right", "margin-top": "6px" },
+              attrs: { type: "primary", size: "mini", icon: "el-icon-plus" },
+              on: { click: _vm.addMenu }
+            },
+            [_vm._v("新增菜单")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticStyle: { padding: "20px", border: "1px solid #ebeef5" } },
+        [
+          _c(
+            "el-table",
+            {
+              directives: [
+                {
+                  name: "loading",
+                  rawName: "v-loading",
+                  value: _vm.loading,
+                  expression: "loading"
+                }
+              ],
+              staticStyle: { "text-align": "center" },
+              attrs: {
+                data: _vm.tableData,
+                border: "",
+                "element-loading-text": "Loading"
+              }
+            },
+            [
+              _c("el-table-column", {
+                attrs: { label: "序号", width: "80", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          _vm._s(
+                            1 +
+                              scope.$index +
+                              (_vm.pagination.currentPage - 1) *
+                                _vm.pagination.pageSize
+                          )
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "ID", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.id))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "名称", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.name))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: {
+                  label: "url",
+                  "header-align": "center",
+                  width: "240px"
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.path))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "图标", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.icon))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "功能ID", "header-align": "center" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [_vm._v(_vm._s(scope.row.axis))]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "操作", width: "180" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { type: "primary", size: "mini" },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit(scope.row)
+                              }
+                            }
+                          },
+                          [_vm._v("编辑")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "el-button",
+                          {
+                            attrs: { type: "danger", size: "mini" },
+                            on: {
+                              click: function($event) {
+                                return _vm.del(scope.row)
+                              }
+                            }
+                          },
+                          [_vm._v("删除")]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "el-row",
+        {
+          staticStyle: { "padding-top": "40px" },
+          attrs: { type: "flex", justify: "end" }
+        },
+        [
+          _c("el-pagination", {
+            attrs: {
+              "current-page": _vm.pagination.currentPage,
+              total: _vm.pagination.total,
+              "page-size": _vm.pagination.pageSize,
+              background: "",
+              layout: "total, sizes, prev, pager, next, jumper"
+            },
+            on: {
+              "current-change": _vm.handleCurrentChange,
+              "size-change": _vm.handleSizeChange
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-46d5afe1", module.exports)
+  }
+}
+
+/***/ }),
 /* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -105623,665 +106272,6 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(277);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("27e09233", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-46d5afe1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MenuList.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-46d5afe1\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MenuList.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.el-table td[data-v-46d5afe1]{\n  text-align: center;\n}\ntd.el-table_1_column_4[data-v-46d5afe1]{\n  text-align: left;\n  padding-left: 10px;\n}  \n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 278 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticStyle: { padding: "20px 30px" } },
-    [
-      _c(
-        "el-header",
-        {
-          staticStyle: {
-            height: "40px",
-            "line-height": "40px",
-            "font-weight": "bold",
-            "padding-left": "10px",
-            background: "#ccc"
-          }
-        },
-        [
-          _vm._v("\n    菜单管理\n    "),
-          _c(
-            "el-button",
-            {
-              staticStyle: { float: "right", "margin-top": "6px" },
-              attrs: { type: "primary", size: "mini", icon: "el-icon-plus" },
-              on: { click: _vm.addMenu }
-            },
-            [_vm._v("新增菜单")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticStyle: { padding: "20px", border: "1px solid #ebeef5" } },
-        [
-          _c(
-            "el-table",
-            {
-              directives: [
-                {
-                  name: "loading",
-                  rawName: "v-loading",
-                  value: _vm.loading,
-                  expression: "loading"
-                }
-              ],
-              staticStyle: { "text-align": "center" },
-              attrs: {
-                data: _vm.tableData,
-                border: "",
-                "element-loading-text": "Loading"
-              }
-            },
-            [
-              _c("el-table-column", {
-                attrs: { label: "序号", width: "80", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _vm._v(
-                          _vm._s(
-                            1 +
-                              scope.$index +
-                              (_vm.pagination.currentPage - 1) *
-                                _vm.pagination.pageSize
-                          )
-                        )
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "ID", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.id))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "名称", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.name))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: {
-                  label: "url",
-                  "header-align": "center",
-                  width: "240px"
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.path))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "图标", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.icon))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "功能ID", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.axis))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "操作", width: "180" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _c(
-                          "el-button",
-                          {
-                            attrs: { type: "primary", size: "mini" },
-                            on: {
-                              click: function($event) {
-                                return _vm.edit(scope.row)
-                              }
-                            }
-                          },
-                          [_vm._v("编辑")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "el-button",
-                          {
-                            attrs: { type: "danger", size: "mini" },
-                            on: {
-                              click: function($event) {
-                                return _vm.del(scope.row)
-                              }
-                            }
-                          },
-                          [_vm._v("删除")]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-row",
-        {
-          staticStyle: { "padding-top": "40px" },
-          attrs: { type: "flex", justify: "end" }
-        },
-        [
-          _c("el-pagination", {
-            attrs: {
-              "current-page": _vm.pagination.currentPage,
-              total: _vm.pagination.total,
-              "page-size": _vm.pagination.pageSize,
-              background: "",
-              layout: "total, sizes, prev, pager, next, jumper"
-            },
-            on: {
-              "current-change": _vm.handleCurrentChange,
-              "size-change": _vm.handleSizeChange
-            }
-          })
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-46d5afe1", module.exports)
-  }
-}
-
-/***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(280);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("7a98a29c", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3eb3cf4a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3eb3cf4a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 280 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.el-table td[data-v-3eb3cf4a],\r\n.el-table th.is-leaf[data-v-3eb3cf4a] {\r\n  text-align: center;\n}\n.el-table--border th[data-v-3eb3cf4a] {\r\n  background: #fafafa;\n}\n.el-button+.el-button[data-v-3eb3cf4a] {\r\n  margin-left: 5px;\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 281 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "app-container", staticStyle: { padding: "20px 0" } },
-    [
-      _c(
-        "el-form",
-        {
-          ref: "form",
-          staticStyle: { border: "1px solid #ebeef5", "margin-bottom": "20px" },
-          attrs: {
-            model: _vm.form,
-            inline: true,
-            size: "medium",
-            "label-width": "100px"
-          }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticStyle: {
-                height: "40px",
-                "line-height": "40px",
-                "font-weight": "bold",
-                "padding-left": "10px",
-                "background-color": "#ccc",
-                "margin-bottom": "20px"
-              }
-            },
-            [_vm._v("查询")]
-          ),
-          _vm._v(" "),
-          _c(
-            "el-form-item",
-            { attrs: { label: "姓名", prop: "realNameLike" } },
-            [
-              _c("el-input", {
-                attrs: { clearable: "", placeholder: "请输入姓名" },
-                model: {
-                  value: _vm.form.realNameLike,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "realNameLike", $$v)
-                  },
-                  expression: "form.realNameLike"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-form-item",
-            { attrs: { label: "手机号", prop: "mobilePhone" } },
-            [
-              _c("el-input", {
-                attrs: { clearable: "", placeholder: "请输入手机号" },
-                model: {
-                  value: _vm.form.mobilePhone,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "mobilePhone", $$v)
-                  },
-                  expression: "form.mobilePhone"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "el-form-item",
-            [
-              _c(
-                "el-button",
-                {
-                  staticStyle: { width: "90px" },
-                  attrs: { type: "primary" },
-                  on: {
-                    click: function($event) {
-                      return _vm.resetForm("form")
-                    }
-                  }
-                },
-                [_vm._v("重置")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                { attrs: { type: "primary" }, on: { click: _vm.getData } },
-                [_vm._v("查询")]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-header",
-        {
-          staticStyle: {
-            height: "40px",
-            "line-height": "40px",
-            "font-weight": "bold",
-            "padding-left": "10px",
-            "background-color": "#ccc"
-          }
-        },
-        [_vm._v("会员列表")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticStyle: { padding: "20px", border: "1px solid #ebeef5" } },
-        [
-          _c(
-            "el-table",
-            {
-              directives: [
-                {
-                  name: "loading",
-                  rawName: "v-loading",
-                  value: _vm.loading,
-                  expression: "loading"
-                }
-              ],
-              staticStyle: { width: "100%", "text-align": "center" },
-              attrs: {
-                data: _vm.tableData,
-                border: "",
-                "element-loading-text": "Loading"
-              },
-              on: { "row-dblclick": _vm.goDetail }
-            },
-            [
-              _c("el-table-column", {
-                attrs: { label: "序号", "header-align": "center", width: "60" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _vm._v(
-                          _vm._s(
-                            1 +
-                              scope.$index +
-                              (_vm.pagination.currentPage - 1) *
-                                _vm.pagination.pageSize
-                          )
-                        )
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "会员编号", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.id || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "登录名", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.userName || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: {
-                  label: "性别",
-                  "header-align": "center",
-                  width: "60px"
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.userSex || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "备注", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.linksDesc || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "邮箱", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.userEmail || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "会员权限", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.userStatus || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "状态", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [_vm._v(_vm._s(scope.row.userGrade || "——"))]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: {
-                  label: "最后登录",
-                  "header-align": "center",
-                  width: "175px"
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _vm._v(
-                          " " + _vm._s(scope.row.userEndTime || "——") + " "
-                        )
-                      ]
-                    }
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { label: "操作", "header-align": "center" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(scope) {
-                      return [
-                        _c(
-                          "el-button",
-                          {
-                            attrs: { type: "primary", size: "mini" },
-                            on: {
-                              click: function($event) {
-                                return _vm.memberDetail(scope.row.id)
-                              }
-                            }
-                          },
-                          [_vm._v("查看详情")]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "el-row",
-        {
-          staticStyle: { "padding-top": "40px" },
-          attrs: { type: "flex", justify: "end" }
-        },
-        [
-          _c("el-pagination", {
-            attrs: {
-              "current-page": _vm.pagination.currentPage,
-              "page-size": _vm.pagination.pageSize,
-              total: _vm.pagination.total,
-              background: "",
-              layout: "total, sizes, prev, pager, next, jumper"
-            },
-            on: {
-              "update:currentPage": function($event) {
-                return _vm.$set(_vm.pagination, "currentPage", $event)
-              },
-              "update:current-page": function($event) {
-                return _vm.$set(_vm.pagination, "currentPage", $event)
-              },
-              "size-change": _vm.handleSizeChange,
-              "current-change": _vm.handleCurrentChange
-            }
-          })
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3eb3cf4a", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

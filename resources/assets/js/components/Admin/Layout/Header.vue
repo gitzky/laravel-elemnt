@@ -6,7 +6,7 @@
 	    </el-menu-item>
 	    <el-menu-item index="/admin/dull">处理中心</el-menu-item>
 	    <el-menu-item index="/admin/news">消息中心</el-menu-item>
-	    <el-menu-item index="/admin/order">订单管理</el-menu-item>
+	    <el-menu-item index="/admin/set">设置中心</el-menu-item>
 	    <el-menu-item index="##" style="float:right">
 	      <el-dropdown>
 	        <span class="el-dropdown-link">

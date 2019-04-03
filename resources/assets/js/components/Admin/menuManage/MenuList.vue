@@ -124,12 +124,9 @@ export default {
   }
 }
 </script>
-<style scoped>
-  .el-table td{
-    text-align: center;
-  }
-  td.el-table_1_column_4{
-    text-align: left;
-    padding-left: 10px;
-  }  
+<style>
+.el-table td,
+.el-table th.is-leaf {
+  text-align: center;
+}
 </style>
