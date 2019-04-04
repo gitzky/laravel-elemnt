@@ -1,42 +1,43 @@
 <template>
   <div class="app clear">
-    <Slidbar :isOpen = "isCollapse"></Slidbar>
+    <Sidebar :isOpen = "isCollapse"></Sidebar>
     <div class="pull-left" 
       style="width: 87%;height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;"
       :class="{wMax:isCollapse,wMin:!isCollapse}">
       <Header @isOpen = "isOpen"></Header>
+     
       <div class="box10"></div>
-      <el-breadcrumb separator="/" class="pad20_lr">
-        <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-      </el-breadcrumb>
+      <TagView :routes = "routes"></TagView>
       <el-row class="main" style="padding:15px 20px;">
+       
         <router-view></router-view>
       </el-row>
     </div>
   </div>
 </template>
 <script>
-  import Slidbar from './Admin/Layout/Slidbar'
+  import Sidebar from './Admin/Layout/Sidebar'
   import Header from './Admin/Layout/Header'
+  import TagView from './Admin/Layout/TagView'
+  import store from '../store'
   export default {
+    store,
     components: {
-      Slidbar,
-      Header
+      Sidebar,
+      Header,
+      TagView
     },
     data() {
       return {
         isCollapse: false,
+        routes: []
       };
     },
-    
+   
     methods: {
       isOpen(data) {
         this.isCollapse = data
-        console.log(data)
-      }
-      
+      },
     }
   }
 </script>

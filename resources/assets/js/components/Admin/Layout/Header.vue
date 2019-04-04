@@ -46,7 +46,6 @@
       getMemberInfo() {
         this.$store.dispatch('admin/getMemberInfo').then(res => {
           if (res.code === '0') {
-            console.log('info',res.data)
             this.memberInfo = res.data
           }
         })

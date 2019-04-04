@@ -71,7 +71,7 @@ export default {
     },
     addMenu() {
       this.$router.push({
-        path: `/admin/menuManage/addMenu/null`
+        path: `/admin/menuManage/addMenu`
       })
     },
     del(row) {

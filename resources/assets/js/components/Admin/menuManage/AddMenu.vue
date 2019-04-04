@@ -46,8 +46,6 @@ export default {
     }
   },
   created() {
-    this.columnForm.id = this.$route.params.id == 'null' ? '' : this.$route.params.id 
-    this.columnForm.id && this.getData(this.columnForm.id)
     this.getPrentData()
   },
   methods: {
@@ -56,15 +54,6 @@ export default {
     },
     onCancel() {
       this.$router.back()
-    },
-    getData(id) {
-      this.$store.dispatch('menu/selMenuById', { id }).then(res => {
-        this.columnForm.name = res.data.name
-        this.columnForm.path = res.data.path
-        this.columnForm.icon = res.data.icon
-        this.columnForm.sort = res.data.sort
-        this.columnForm.parentId = res.data.parentId && parseInt(res.data.parentId)
-      })
     },
     getPrentData() {
       const formCon = {
@@ -83,8 +72,7 @@ export default {
         if (valid) {
           this.columnForm.axis = this.columnForm.parentId?'$1$' + this.columnForm.parentId : '$1'
           const formCon = columnForm
-          let api = this.columnForm.id ? 'menu/updMenuById' :'menu/addMenu' 
-          this.$store.dispatch(api, formCon).then(response => {
+          this.$store.dispatch('menu/addMenu', formCon).then(response => {
             this.$message({
               type: 'success',
               message: '操作成功!'
