@@ -14,9 +14,13 @@
         <!-- Styles -->
     </head>
     <body>
+       <script type="text/javascript" src="http://static.nxin.com/plug/help/index.js"></script>
        <div id="app">
            <admin-layout></admin-layout>
        </div>
     </body>
 </html>
 <script type="text/javascript" src="js/app.js"></script>
+<script>
+    NxinPlug.help();
+</script>
