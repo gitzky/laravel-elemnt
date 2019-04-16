@@ -1,5 +1,5 @@
 <template>
-  <div class="pull-left" style="height:100vh;background-color: rgba(0, 0, 0, 0.8);overflow-y: auto;overflow-x: hidden;">
+  <div class="" style="width:208px;height:100vh;background-color: #304156;overflow-y: auto;">
     <el-menu
       v-loading="loading"
       background-color="#304156"

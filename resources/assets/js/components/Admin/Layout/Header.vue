@@ -10,7 +10,7 @@
 	    <el-menu-item index="##" style="float:right">
 	      <el-dropdown>
 	        <span class="el-dropdown-link">
-	          <span style="display:inline-block;width:45px;height:45px;border:1px solid #ccc;margin-right:30px"><img :src="memberInfo.img" style="width:45px;height:45px;float:left"></span>
+	          <span style="display:inline-block;width:45px;height:45px;border:1px solid #ccc;text-align:center"><img :src="memberInfo.img" style="width:45px;height:45px;float:left"></span>
 	        </span>
 	        <el-dropdown-menu slot="dropdown">
 	          <el-menu-item index="/admin/person">个人中心</el-menu-item>

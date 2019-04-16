@@ -1,15 +1,12 @@
 <template>
   <div class="app clear">
     <Sidebar :isOpen = "isCollapse"></Sidebar>
-    <div class="pull-left" 
-      style="width: 87%;height:100vh;background:#fff;overflow-y: auto;overflow-x: hidden;"
+    <div class="mainContent" 
       :class="{wMax:isCollapse,wMin:!isCollapse}">
       <Header @isOpen = "isOpen"></Header>
-     
       <div class="box10"></div>
       <TagView :routes = "routes"></TagView>
       <el-row class="main" style="padding:15px 20px;">
-       
         <router-view></router-view>
       </el-row>
     </div>
@@ -41,34 +38,50 @@
     }
   }
 </script>
-<style>
+<style lang="scss">
 
 .app{
-    position: relative;
-}
-.wMax{
-  animation: wMax .3s ease-in-out forwards;
-}
-.wMin{
-  animation: wMin .3s ease-in-out forwards;
+  position: relative;
+  .mainContent{
+    width: 89%;
+    position: absolute;
+    top: 0;
+    left: 208px;
+    height:100vh;
+    background:#fff;
+    overflow-y: auto;
+  }
+
+  .wMax{
+    animation: wMax .3s ease-in-out forwards;
+  }
+  .wMin{
+    animation: wMin .3s ease-in-out forwards;
+  }
+
+  @keyframes wMax {
+    0% {
+      width: 89%;
+      left: 208px;
+    }
+    100% {
+      width: 95.5%;
+      left: 65px;
+    }
+  }
+  @keyframes wMin {
+    0% {
+      width: 95.5%;
+      left: 65px;
+    }
+    100% {
+      width: 89%;
+      left: 208px;
+    }
+  }
+
 }
 
-@keyframes wMax {
-  0% {
-    width: 87%;
-  }
-  100% {
-    width: 95%;
-  }
-}
-@keyframes wMin {
-  0% {
-    width: 95%;
-  }
-  100% {
-    width: 87%;
-  }
-}
 </style>
 
 

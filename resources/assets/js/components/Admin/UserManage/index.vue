@@ -9,7 +9,7 @@
         <el-input v-model="form.mobilePhone" clearable placeholder="请输入手机号"/>
       </el-form-item>
       <el-form-item>
-        <el-button style=" width:90px" type="primary" @click="resetForm('form')">重置</el-button>
+        <el-button type="primary" @click="resetForm('form')">重置</el-button>
         <el-button type="primary" @click="getData">查询</el-button>
       </el-form-item>
     </el-form>
@@ -50,7 +50,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-row style="padding-top:40px" type="flex" justify="end">
+    <el-row class="pad30_t" type="flex" justify="end">
       <el-pagination :current-page.sync ="pagination.currentPage" :page-size="pagination.pageSize" :total="pagination.total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
     </el-row>
   </div>

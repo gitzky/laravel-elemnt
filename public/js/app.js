@@ -41247,7 +41247,7 @@ function required(rule, value, source, errors, options, type) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(226)
+  __webpack_require__(283)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
@@ -102265,46 +102265,8 @@ if (false) {
 }
 
 /***/ }),
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(227);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("7fce9040", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-48b24c28\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Admin.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-48b24c28\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Admin.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 227 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.app{\r\n    position: relative;\n}\n.wMax{\r\n  -webkit-animation: wMax .3s ease-in-out forwards;\r\n          animation: wMax .3s ease-in-out forwards;\n}\n.wMin{\r\n  -webkit-animation: wMin .3s ease-in-out forwards;\r\n          animation: wMin .3s ease-in-out forwards;\n}\n@-webkit-keyframes wMax {\n0% {\r\n    width: 87%;\n}\n100% {\r\n    width: 95%;\n}\n}\n@keyframes wMax {\n0% {\r\n    width: 87%;\n}\n100% {\r\n    width: 95%;\n}\n}\n@-webkit-keyframes wMin {\n0% {\r\n    width: 95%;\n}\n100% {\r\n    width: 87%;\n}\n}\n@keyframes wMin {\n0% {\r\n    width: 95%;\n}\n100% {\r\n    width: 87%;\n}\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 226 */,
+/* 227 */,
 /* 228 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -102317,9 +102279,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Admin_Layout_TagView__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Admin_Layout_TagView___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Admin_Layout_TagView__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(49);
-//
-//
-//
 //
 //
 //
@@ -102578,12 +102537,11 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "pull-left",
       staticStyle: {
+        width: "208px",
         height: "100vh",
-        "background-color": "rgba(0, 0, 0, 0.8)",
-        "overflow-y": "auto",
-        "overflow-x": "hidden"
+        "background-color": "#304156",
+        "overflow-y": "auto"
       }
     },
     [
@@ -102920,7 +102878,7 @@ var render = function() {
                           width: "45px",
                           height: "45px",
                           border: "1px solid #ccc",
-                          "margin-right": "30px"
+                          "text-align": "center"
                         }
                       },
                       [
@@ -103225,15 +103183,8 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "pull-left",
-          class: { wMax: _vm.isCollapse, wMin: !_vm.isCollapse },
-          staticStyle: {
-            width: "87%",
-            height: "100vh",
-            background: "#fff",
-            "overflow-y": "auto",
-            "overflow-x": "hidden"
-          }
+          staticClass: "mainContent",
+          class: { wMax: _vm.isCollapse, wMin: !_vm.isCollapse }
         },
         [
           _c("Header", { on: { isOpen: _vm.isOpen } }),
@@ -105334,7 +105285,6 @@ var render = function() {
               _c(
                 "el-button",
                 {
-                  staticStyle: { width: "90px" },
                   attrs: { type: "primary" },
                   on: {
                     click: function($event) {
@@ -105557,10 +105507,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "el-row",
-        {
-          staticStyle: { "padding-top": "40px" },
-          attrs: { type: "flex", justify: "end" }
-        },
+        { staticClass: "pad30_t", attrs: { type: "flex", justify: "end" } },
         [
           _c("el-pagination", {
             attrs: {
@@ -106911,6 +106858,52 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(284);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("04b52561", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-48b24c28\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Admin.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-48b24c28\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Admin.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.app {\n  position: relative;\n}\n.app .mainContent {\n    width: 89%;\n    position: absolute;\n    top: 0;\n    left: 208px;\n    height: 100vh;\n    background: #fff;\n    overflow-y: auto;\n}\n.app .wMax {\n    -webkit-animation: wMax .3s ease-in-out forwards;\n            animation: wMax .3s ease-in-out forwards;\n}\n.app .wMin {\n    -webkit-animation: wMin .3s ease-in-out forwards;\n            animation: wMin .3s ease-in-out forwards;\n}\n@-webkit-keyframes wMax {\n0% {\n    width: 89%;\n    left: 208px;\n}\n100% {\n    width: 95.5%;\n    left: 65px;\n}\n}\n@keyframes wMax {\n0% {\n    width: 89%;\n    left: 208px;\n}\n100% {\n    width: 95.5%;\n    left: 65px;\n}\n}\n@-webkit-keyframes wMin {\n0% {\n    width: 95.5%;\n    left: 65px;\n}\n100% {\n    width: 89%;\n    left: 208px;\n}\n}\n@keyframes wMin {\n0% {\n    width: 95.5%;\n    left: 65px;\n}\n100% {\n    width: 89%;\n    left: 208px;\n}\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

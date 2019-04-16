@@ -12,6 +12,31 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="css/public.css" />
         <!-- Styles -->
+        <style>
+          /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+          ::-webkit-scrollbar
+          {
+              width: 8px;
+              height: 16px;
+              background-color:#f2f2f2
+          }
+          /*定义滚动条轨道 内阴影+圆角*/
+          ::-webkit-scrollbar-track
+          {
+              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+              border-radius: 8px;
+              background-color: #F5F5F5;
+          }
+           
+          /*定义滑块 内阴影+圆角*/
+          ::-webkit-scrollbar-thumb
+          {
+              border-radius: 8px;
+              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+              background-color: #999
+          }
+
+        </style>
     </head>
     <body>
        <script type="text/javascript" src="http://static.nxin.com/plug/help/index.js"></script>
@@ -22,5 +47,5 @@
 </html>
 <script type="text/javascript" src="js/app.js"></script>
 <script>
-    NxinPlug.help();
+    // NxinPlug.help();
 </script>
