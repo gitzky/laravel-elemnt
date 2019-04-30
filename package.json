@@ -23,6 +23,7 @@
         "element-ui": "^2.6.0"
     },
     "dependencies": {
-        "vue-cookies": "^1.5.12"
+        "vue-cookies": "^1.5.12",
+        "vue-quill-editor": "^3.0.6"
     }
 }
