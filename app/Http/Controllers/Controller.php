@@ -79,6 +79,7 @@ class Controller extends BaseController
                 ->get();
         } else {
            $res = DB::table($database)
+               //->orderBy('sort','ASC')
                ->skip($step)
                ->take($pageSize)
                ->get(); 

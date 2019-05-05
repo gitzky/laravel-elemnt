@@ -1,6 +1,6 @@
 <template>
      <quill-editor 
-     style="height: 420px;"
+     style="height: 425px;" 
       v-model="content" 
       placeholder="在这输入"
       ref="myQuillEditor" 
@@ -20,12 +20,14 @@
         },
         methods:{
             onEditorBlur(){//失去焦点事件
-              console.log(this.content)
+          
+              this.$emit('getPostContent', this.content)
             },
             onEditorFocus(){//获得焦点事件
             },
             onEditorChange(){//内容改变事件
-            console.log(this.content)
+          
+            this.$emit('getPostContent', this.content)
             }
         }
     }

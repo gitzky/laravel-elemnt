@@ -82,13 +82,19 @@ let adminRoutes = [
   {
       path: "/admin/postManage/postList",
       name:'文章列表',
-      component: require("./components/Admin/MenuManage/MenuList")
+      component: require("./components/Admin/PostManage/PostList")
+  },
+  {
+      path: "/admin/postManage/addPostType",
+      name:'新增文章类型',
+      component: require("./components/Admin/PostManage/AddPostType")
   },
   {
       name:'文章类型',
       path: "/admin/postManage/postType",
-      component:require("./components/Admin/MenuManage/AddMenu")
+      component:require("./components/Admin/PostManage/PostTypeList")
   },
+
   // 设置
   {
       name:'设置',

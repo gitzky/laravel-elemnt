@@ -51,11 +51,25 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/user/selUserList',"UserController@getUserList");
   Route::any('/api/user/selUserById',"UserController@getUserDetail");
   
+  // 菜单
   Route::any('/api/menu/addMenu',"MenuController@addMenu");
   Route::any('/api/menu/selMenuList',"MenuController@selMenuList");
   Route::any('/api/menu/selMenuById',"MenuController@selMenuById");
   Route::any('/api/menu/updMenuById',"MenuController@updMenuById");
   Route::any('/api/menu/delMenuById',"MenuController@delMenuById");
+  
+  // 上传图片
+  Route::any('/api/upload',"UploadController@uploadImg");
+  
+  
+  // 文章管理
+  Route::any('/api/post/addNewPost',"PostManageController@addNewPost");
+  Route::any('/api/post/selPostListByParams',"PostManageController@selPostList");
+  
+  Route::any('/api/post/selPostTypeList',"PostManageController@selPostTypeList");
+  Route::any('/api/post/addPostType',"PostManageController@addPostType");
+  Route::any('/api/post/delPostType',"PostManageController@delPostType");
+
 });
 
 
