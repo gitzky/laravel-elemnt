@@ -4,14 +4,14 @@
       <div class="close">
         <span class="f48 block" @click="viewPost"><i class="el-icon-circle-close"></i></span>
       </div>
-      <div class="w1010 mar_auto b_white text-center pad20" style="margin: 0 auto;height: 100%;overflow-y: auto ;">
+      <div class="w1010 mar_auto b_white pad20" style="margin: 0 auto;height: 100%;overflow-y: auto ;">
         <h2 class="c_titile">{{ form.postTitle }}</h2>
-        <div class="pad5 gray_9 mar20_b" style="border: 1px dashed #ccc;">
+        <div class="pad5 gray_9 mar20_b text-center" style="border: 1px dashed #ccc;">
           <span class="pad10_lr">发布时间：2018-8-8</span>
           <span class="pad10_lr">编辑：<span style="color: #009999;">小元元</span></span>
           <span class="pad10_lr">阅读：(0)</span>
         </div>
-        <div class="content text-left" v-html="form.postContent"></div>
+        <div class="content" v-html="form.postContent"></div>
       </div>
       
     </div>
@@ -30,18 +30,13 @@
             label-width="80px"
             prop="postType"
             :rules="{required: true,message: '请输入文章类型'}">
-            <el-select v-model="form.postType" class="w240">
-              <el-option :key="index" v-for="(item,index) in postTypes" :value="item.code" class="mar10_b">
-                <el-button class="w200 ellipsis" plain  size="mini" :type="item.type">{{ item.code }}</el-button>
-                
-              </el-option>
+            <el-select v-model="form.postType">
+              <el-option :key="index" v-for="(item,index) in postTypes" :value="item.code" :label="item.code"/>
             </el-select>
           </el-form-item>
           <el-form-item
             label="文章内容"
-            label-width="80px"
-            prop="postContent"
-            :rules="{required: true,message: '请输入文章内容'}">
+            label-width="80px">
             <Editor @getPostContent="getPostContent" />
           </el-form-item>
         </el-form>
@@ -68,8 +63,8 @@
           <p class="red">若确定无误，请点击提交</p>
           <div class="box10"></div>
           <el-button size="small">重置</el-button>
-          <el-button size="small" @click="viewPost">预览</el-button>
-          <el-button size="small" class="w80" type="primary" @click="commitPost">提交</el-button>
+          <el-button size="small" @click="viewPost('form')">预览</el-button>
+          <el-button size="small" class="w80" type="primary" @click="commitPost('form')">提交</el-button>
         </div>
       </el-col>
     </el-row>
@@ -108,8 +103,12 @@
               this.postTypes = res.list || []
             })
           },
-          viewPost() {
-            this.viewPosts = !this.viewPosts
+          viewPost(formName) {
+            this.$refs[formName].validate(valid => {
+              if (valid) {
+                this.viewPosts = !this.viewPosts
+              }
+            })
           },
           commitPost() {
             if (!this.imageUrl) {

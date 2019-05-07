@@ -120718,11 +120718,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -120757,8 +120752,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.postTypes = res.list || [];
       });
     },
-    viewPost: function viewPost() {
-      this.viewPosts = !this.viewPosts;
+    viewPost: function viewPost(formName) {
+      var _this2 = this;
+
+      this.$refs[formName].validate(function (valid) {
+        if (valid) {
+          _this2.viewPosts = !_this2.viewPosts;
+        }
+      });
     },
     commitPost: function commitPost() {
       if (!this.imageUrl) {
@@ -120959,7 +120960,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "w1010 mar_auto b_white text-center pad20",
+                staticClass: "w1010 mar_auto b_white pad20",
                 staticStyle: {
                   margin: "0 auto",
                   height: "100%",
@@ -120974,7 +120975,7 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", {
-                  staticClass: "content text-left",
+                  staticClass: "content",
                   domProps: { innerHTML: _vm._s(_vm.form.postContent) }
                 })
               ]
@@ -121035,7 +121036,6 @@ var render = function() {
                       _c(
                         "el-select",
                         {
-                          staticClass: "w240",
                           model: {
                             value: _vm.form.postType,
                             callback: function($$v) {
@@ -121045,29 +121045,10 @@ var render = function() {
                           }
                         },
                         _vm._l(_vm.postTypes, function(item, index) {
-                          return _c(
-                            "el-option",
-                            {
-                              key: index,
-                              staticClass: "mar10_b",
-                              attrs: { value: item.code }
-                            },
-                            [
-                              _c(
-                                "el-button",
-                                {
-                                  staticClass: "w200 ellipsis",
-                                  attrs: {
-                                    plain: "",
-                                    size: "mini",
-                                    type: item.type
-                                  }
-                                },
-                                [_vm._v(_vm._s(item.code))]
-                              )
-                            ],
-                            1
-                          )
+                          return _c("el-option", {
+                            key: index,
+                            attrs: { value: item.code, label: item.code }
+                          })
                         }),
                         1
                       )
@@ -121077,14 +121058,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "el-form-item",
-                    {
-                      attrs: {
-                        label: "文章内容",
-                        "label-width": "80px",
-                        prop: "postContent",
-                        rules: { required: true, message: "请输入文章内容" }
-                      }
-                    },
+                    { attrs: { label: "文章内容", "label-width": "80px" } },
                     [
                       _c("Editor", {
                         on: { getPostContent: _vm.getPostContent }
@@ -121155,7 +121129,14 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "el-button",
-                  { attrs: { size: "small" }, on: { click: _vm.viewPost } },
+                  {
+                    attrs: { size: "small" },
+                    on: {
+                      click: function($event) {
+                        return _vm.viewPost("form")
+                      }
+                    }
+                  },
                   [_vm._v("预览")]
                 ),
                 _vm._v(" "),
@@ -121164,7 +121145,11 @@ var render = function() {
                   {
                     staticClass: "w80",
                     attrs: { size: "small", type: "primary" },
-                    on: { click: _vm.commitPost }
+                    on: {
+                      click: function($event) {
+                        return _vm.commitPost("form")
+                      }
+                    }
                   },
                   [_vm._v("提交")]
                 )
@@ -121187,7 +121172,7 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass: "pad5 gray_9 mar20_b",
+        staticClass: "pad5 gray_9 mar20_b text-center",
         staticStyle: { border: "1px dashed #ccc" }
       },
       [

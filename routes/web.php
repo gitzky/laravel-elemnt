@@ -59,6 +59,7 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/menu/delMenuById',"MenuController@delMenuById");
   
   // 上传图片
+  Route::any('/upload',"UploadController@upload");
   Route::any('/api/upload',"UploadController@uploadImg");
   
   

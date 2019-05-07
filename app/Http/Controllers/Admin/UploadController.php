@@ -8,22 +8,31 @@ use App\Http\Controllers\Controller;
 class UploadController extends Controller
 {
     // 上传
-    public function upload(Request $request)
+    public function upload()
     {
-        $file = $request->file('fileName');
-        // var_dump($file);
-        // $originalName = $file->getClientOriginalName();
-        // //扩展名
-        // $ext = $file->getClientOriginalExtension();
-        // //MimeType
-        // $type = $file->getClientMimeType();
-        // //临时绝对路径
-        // $realPath = $file->getRealPath();
-        // $filename = uniqid().'.'.$ext;
-         $files = iconv("UTF-8","gb2312",$file);
-     
-        //$bool = Storage::disk('uploads')->put($filename,file_get_contents($realPath));
-        var_dump($base64_str,$files);
+        $file = $_FILES['upfile'];
+        // if ($_FILES["file"]["error"] == 0) {
+        //     //上传文件到CDN
+        //     $res = array(
+        //         "state"    => "",          //上传状态，上传成功时必须返回"SUCCESS"
+        //         "url"      => "",            //CDN地址
+        //         "title"    => "",          //新文件名
+        //         "original" => "",       //原始文件名
+        //         "type"     => "",           //文件类型
+        //         "size"     => "",           //文件大小
+        //     );
+        //     
+        // }
+
+        $res = array(
+           "original" => "t_15142885945a4235d20401d.jpg",
+           "size" => 47897,
+           "state" => "SUCCESS",
+           "title" => "1557230468209586.jpg",
+           "type" => ".jpg",
+           "url" => "/storage/image/20190507/1557230468209586.jpg"
+        );
+        echo json_encode($res);
     }
     
     public function uploadImg(Request $request)
