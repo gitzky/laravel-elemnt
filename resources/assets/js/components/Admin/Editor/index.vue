@@ -1,5 +1,5 @@
 <template>
-     <quill-editor 
+     <quill-editor
      style="height: 425px;" 
       v-model="content" 
       placeholder="在这输入"
@@ -32,4 +32,9 @@
         }
     }
 </script>
+<style>
+    .ql-container.ql-snow img{
+        max-width: 600px;
+    }
+</style>
 

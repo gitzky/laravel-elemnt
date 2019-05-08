@@ -120644,6 +120644,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Editor__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Editor__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__untils_tools_js__ = __webpack_require__(330);
 //
 //
 //
@@ -120718,6 +120719,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -120729,8 +120743,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       viewPosts: false,
       form: {
         postTitle: '',
+        postAuthor: '',
         postType: '',
-        postContent: ''
+        postIntro: '',
+        postContent: '',
+        date: Object(__WEBPACK_IMPORTED_MODULE_1__untils_tools_js__["a" /* Format */])('yyyy-MM-dd hh:mm:ss', new Date())
       },
       postTypes: [{ code: 1, label: "PHP" }, { code: 2, label: "JAVA" }],
       imageUrl: '',
@@ -120761,17 +120778,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    commitPost: function commitPost() {
-      if (!this.imageUrl) {
-        this.$message({
-          type: 'warning',
-          message: '请上传文章配图！'
+    commitPost: function commitPost(formName) {
+      var _this3 = this;
+
+      this.$refs[formName].validate(function (valid) {
+        if (!_this3.imageUrl) {
+          _this3.$message({
+            type: 'warning',
+            message: '请上传文章配图！'
+          });
+          return false;
+        }
+        var reqForm = Object.assign({}, _this3.file, _this3.form);
+        _this3.$store.dispatch('postManage/addNewPost', reqForm).then(function (res) {
+          console.log(res);
+          if (res.code === '0') {
+            _this3.$message({
+              type: 'success',
+              message: '文章发表成功'
+            });
+            _this3.$router.push('/admin/postManage/postList');
+          }
         });
-        return false;
-      }
-      var reqForm = Object.assign({}, this.file, this.form);
-      this.$store.dispatch('postManage/addNewPost', reqForm).then(function (res) {
-        console.log(res);
       });
     },
     getPostContent: function getPostContent(data) {
@@ -120799,7 +120827,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return isJPG && isLt2M;
     }
   }
-
 });
 
 /***/ }),
@@ -120807,6 +120834,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(327)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(291)
@@ -120815,7 +120846,7 @@ var __vue_template__ = __webpack_require__(292)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -120952,7 +120983,14 @@ var render = function() {
             _c("div", { staticClass: "close" }, [
               _c(
                 "span",
-                { staticClass: "f48 block", on: { click: _vm.viewPost } },
+                {
+                  staticClass: "f48 block",
+                  on: {
+                    click: function($event) {
+                      _vm.viewPosts = !_vm.viewPosts
+                    }
+                  }
+                },
                 [_c("i", { staticClass: "el-icon-circle-close" })]
               )
             ]),
@@ -120972,10 +121010,32 @@ var render = function() {
                   _vm._v(_vm._s(_vm.form.postTitle))
                 ]),
                 _vm._v(" "),
-                _vm._m(0),
+                _c(
+                  "div",
+                  {
+                    staticClass: "pad5 gray_9 mar20_b text-center",
+                    staticStyle: { border: "1px dashed #ccc" }
+                  },
+                  [
+                    _c("span", { staticClass: "pad10_lr" }, [
+                      _vm._v("发布时间：" + _vm._s(_vm.form.date))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "pad10_lr" }, [
+                      _vm._v("编辑："),
+                      _c("span", { staticStyle: { color: "#009999" } }, [
+                        _vm._v(_vm._s(_vm.form.postAuthor))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "pad10_lr" }, [
+                      _vm._v("阅读：(0)")
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c("div", {
-                  staticClass: "content",
+                  staticClass: "ql-editor",
                   domProps: { innerHTML: _vm._s(_vm.form.postContent) }
                 })
               ]
@@ -121026,6 +121086,30 @@ var render = function() {
                     "el-form-item",
                     {
                       attrs: {
+                        label: "作者",
+                        "label-width": "80px",
+                        prop: "postAuthor",
+                        rules: { required: true, message: "请输入作者" }
+                      }
+                    },
+                    [
+                      _c("el-input", {
+                        model: {
+                          value: _vm.form.postAuthor,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "postAuthor", $$v)
+                          },
+                          expression: "form.postAuthor"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    {
+                      attrs: {
                         label: "文章类型",
                         "label-width": "80px",
                         prop: "postType",
@@ -121052,6 +121136,31 @@ var render = function() {
                         }),
                         1
                       )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    {
+                      attrs: {
+                        label: "文章简介",
+                        "label-width": "80px",
+                        prop: "postIntro",
+                        rules: { required: true, message: "请输入文章简介" }
+                      }
+                    },
+                    [
+                      _c("el-input", {
+                        attrs: { type: "textarea" },
+                        model: {
+                          value: _vm.form.postIntro,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "postIntro", $$v)
+                          },
+                          expression: "form.postIntro"
+                        }
+                      })
                     ],
                     1
                   ),
@@ -121164,30 +121273,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "pad5 gray_9 mar20_b text-center",
-        staticStyle: { border: "1px dashed #ccc" }
-      },
-      [
-        _c("span", { staticClass: "pad10_lr" }, [_vm._v("发布时间：2018-8-8")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "pad10_lr" }, [
-          _vm._v("编辑："),
-          _c("span", { staticStyle: { color: "#009999" } }, [_vm._v("小元元")])
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "pad10_lr" }, [_vm._v("阅读：(0)")])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -122478,6 +122564,76 @@ if (false) {
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-1fa65cc8", module.exports)
   }
+}
+
+/***/ }),
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(328);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("0e074584", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1f3a5b07\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1f3a5b07\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.ql-container.ql-snow img{\n    max-width: 600px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 329 */,
+/* 330 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = Format;
+function Format(fmt, date) {
+  //author: meizz   
+  var o = {
+    "M+": date.getMonth() + 1, //月份   
+    "d+": date.getDate(), //日   
+    "h+": date.getHours(), //小时   
+    "m+": date.getMinutes(), //分   
+    "s+": date.getSeconds(), //秒   
+    "q+": Math.floor((date.getMonth() + 3) / 3), //季度   
+    "S": date.getMilliseconds() //毫秒   
+  };
+  if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+  }return fmt;
 }
 
 /***/ })

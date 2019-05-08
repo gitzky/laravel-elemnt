@@ -2,18 +2,17 @@
   <div>
     <div class="motail" v-if="viewPosts">
       <div class="close">
-        <span class="f48 block" @click="viewPost"><i class="el-icon-circle-close"></i></span>
+        <span class="f48 block" @click="viewPosts = !viewPosts"><i class="el-icon-circle-close"></i></span>
       </div>
       <div class="w1010 mar_auto b_white pad20" style="margin: 0 auto;height: 100%;overflow-y: auto ;">
         <h2 class="c_titile">{{ form.postTitle }}</h2>
         <div class="pad5 gray_9 mar20_b text-center" style="border: 1px dashed #ccc;">
-          <span class="pad10_lr">发布时间：2018-8-8</span>
-          <span class="pad10_lr">编辑：<span style="color: #009999;">小元元</span></span>
+          <span class="pad10_lr">发布时间：{{ form.date }}</span>
+          <span class="pad10_lr">编辑：<span style="color: #009999;">{{ form.postAuthor }}</span></span>
           <span class="pad10_lr">阅读：(0)</span>
         </div>
-        <div class="content" v-html="form.postContent"></div>
+        <div class="ql-editor" v-html="form.postContent"></div>
       </div>
-      
     </div>
     <el-row>
       <el-col :span="19">
@@ -25,6 +24,13 @@
             :rules="{required: true,message: '请输入文章标题'}">
             <el-input v-model="form.postTitle" />
           </el-form-item>
+           <el-form-item
+            label="作者"
+            label-width="80px"
+            prop="postAuthor"
+            :rules="{required: true,message: '请输入作者'}">
+            <el-input v-model="form.postAuthor" />
+          </el-form-item>
           <el-form-item
             label="文章类型"
             label-width="80px"
@@ -33,6 +39,13 @@
             <el-select v-model="form.postType">
               <el-option :key="index" v-for="(item,index) in postTypes" :value="item.code" :label="item.code"/>
             </el-select>
+          </el-form-item>
+          <el-form-item
+            label="文章简介"
+            label-width="80px"
+            prop="postIntro"
+            :rules="{required: true,message: '请输入文章简介'}">
+            <el-input  type="textarea" v-model="form.postIntro" />
           </el-form-item>
           <el-form-item
             label="文章内容"
@@ -44,7 +57,6 @@
       <el-col :span="5" class="pad20_lr">
         <div class="imgWrap mar20_t border pad20_lr">
           <p class="">文章配图</p>
-          
           <el-upload
             class="avatar-uploader"
             action="admin/api/upload"
@@ -74,6 +86,7 @@
 </template> 
 <script>
   import Editor from '../Editor'
+  import { Format } from '../../../untils/tools.js' 
     export default{
         components:{
             Editor:Editor
@@ -83,8 +96,11 @@
               viewPosts:false,
               form: {
                 postTitle: '',
+                postAuthor: '',
                 postType: '',
-                postContent: ''
+                postIntro: '',
+                postContent: '',
+                date: Format('yyyy-MM-dd hh:mm:ss',new Date())
               },
               postTypes:[{code:1,label:"PHP"},{code:2,label:"JAVA"}],
               imageUrl: '',
@@ -110,17 +126,26 @@
               }
             })
           },
-          commitPost() {
-            if (!this.imageUrl) {
-              this.$message({
-                type:'warning',
-                message:'请上传文章配图！'
+          commitPost(formName) {
+            this.$refs[formName].validate(valid => {
+               if (!this.imageUrl) {
+                this.$message({
+                  type:'warning',
+                  message:'请上传文章配图！'
+                })
+                return false
+              }
+              let reqForm = Object.assign({},this.file,this.form)
+              this.$store.dispatch('postManage/addNewPost', reqForm).then(res => {
+                console.log(res)
+                if (res.code === '0') {
+                  this.$message({
+                    type:'success',
+                    message:'文章发表成功'
+                  })
+                  this.$router.push('/admin/postManage/postList')
+                }
               })
-              return false
-            }
-            let reqForm = Object.assign({},this.file,this.form)
-            this.$store.dispatch('postManage/addNewPost', reqForm).then(res => {
-              console.log(res)
             })
           },
           getPostContent(data) {
@@ -148,8 +173,6 @@
             return isJPG && isLt2M;
           }
         }
-        
-        
     }
     
 </script>

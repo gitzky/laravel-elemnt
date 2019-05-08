@@ -38,15 +38,34 @@ class PostManageController extends Controller
     
     public function addNewPost(Request $request)
     {
-        $filename = $request->input('filename');
-        $extension = $request->input('extension');
         // 取到磁盘实例
         $disk = Storage::disk('local');
-        $newFileName = time() . "." . $extension;    //重命名
-        // 移动文件
-        $res = $disk->move('/Temp/'.$filename.'.'.$extension, '/images/'.$newFileName);
-        var_dump($res);
         
+        $filename = $request->input('filename');
+        $extension = $request->input('extension');
+        $date = $request->input('date');
+        $postAuthor = $request->input('postAuthor');
+        $postIntro = $request->input('postIntro');
+        $postContent = $request->input('postContent');
+        $postTitle = $request->input('postTitle');
+        $postType = $request->input('postType');
+        $newFileName = time() . "." . $extension;    //重命名
+        $newPath = '/images/'.$newFileName; // 保存路径+名字
+        // 移动文件
+        $res = $disk->move('/Temp/'.$filename.'.'.$extension, $newPath);
+        if ($res) {
+            $arg = array(
+                "newsName" => $postTitle,
+                "newsAuthor" => $postAuthor,
+                "newsTime" => $date,
+                "newsIntro" => $postIntro,
+                "newsIntroImg" => $newPath,
+                "newsContent" => $postContent,
+                "newsType" => $postType,
+                "newsKey" => $postType
+            );
+            $this->add($arg, 'posts');
+        }
     }
     public function selPostTypeList(Request $request)
     {
