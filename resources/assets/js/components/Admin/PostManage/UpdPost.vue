@@ -11,10 +11,10 @@
           <span class="pad10_lr">编辑：<span style="color: #009999;">{{ form.postAuthor }}</span></span>
           <span class="pad10_lr">阅读：(0)</span>
         </div>
-        <div class="ql-editor pad30" v-html="form.postContent"></div>
+        <div class="ql-editor" v-html="form.postContent"></div>
       </div>
     </div>
-    <el-row class="pad20 mar50_b">
+    <el-row>
       <el-col :span="19">
         <el-form :model="form" ref="form" class="pad20 w100_per">
           <el-form-item
@@ -45,7 +45,7 @@
             label-width="80px"
             prop="postIntro"
             :rules="{required: true,message: '请输入文章简介'}">
-            <el-input  type="textarea" v-model="form.postIntro" />
+            <el-input type="textarea" v-model="form.postIntro" />
           </el-form-item>
           <el-form-item
             label="文章内容"
@@ -80,7 +80,6 @@
         </div>
       </el-col>
     </el-row>
-    <div class="box50"></div>
   </div>
     
 </template> 
@@ -94,6 +93,7 @@
         data() {
             return{
               viewPosts:false,
+              id: '',
               form: {
                 postTitle: '',
                 postAuthor: '',
@@ -108,11 +108,22 @@
         },
         created() {
           this.getPostType()
+          this.loadData(this.$route.params.id)
         },
         methods:{
           resetForm(formName) {
             this.form.postContent = ''
             this.$refs[formName].resetFields();
+          },
+          loadData(id) {
+            this.$store.dispatch('postManage/selPostById', { id }).then(res => {
+              this.form.postTitle = res.newsName
+              this.form.postAuthor = res.newsAuthor
+              this.form.postType = res.newsType.split(',')
+              this.form.postIntro = res.newsIntro
+              this.form.postContent = res.newsContent
+              this.imageUrl = res.newsIntroImg
+            })
           },
           getPostType() {
             this.$store.dispatch('postManage/selPostTypeList').then(res => {
@@ -135,13 +146,13 @@
                 })
                 return false
               }
-              let reqForm = Object.assign({},{ imageUrl: this.imageUrl }, this.form)
-              this.$store.dispatch('postManage/addNewPost', reqForm).then(res => {
+              let reqForm = Object.assign({},{ id: this.$route.params.id }, { imageUrl:this.imageUrl },this.form)
+              this.$store.dispatch('postManage/updPostById', reqForm).then(res => {
                 console.log(res)
                 if (res.code === '0') {
                   this.$message({
                     type:'success',
-                    message:'文章发表成功'
+                    message:'文章修改成功'
                   })
                   this.$router.push('/admin/postManage/postList')
                 }
@@ -149,7 +160,6 @@
             })
           },
           getPostContent(data) {
-            console.log('DATA',data)
             this.form.postContent = data
           },
           handleAvatarSuccess(res, file) {
@@ -158,20 +168,15 @@
           },
           beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
-            const isPNG = file.type === 'image/png';
             const isLt2M = file.size / 1024 / 1024 < 2;
 
-            if (!isJPG && !isPNG) {
-              this.$message.error('上传头像图片只能是 JPG 和 PNG格式!');
+            if (!isJPG) {
+              this.$message.error('上传头像图片只能是 JPG 格式!');
             }
             if (!isLt2M) {
               this.$message.error('上传头像图片大小不能超过 2MB!');
             }
-            if (isJPG || isPNG) {
-              return isLt2M;
-            } else {
-              return false
-            }
+            return isJPG && isLt2M;
           }
         }
     }

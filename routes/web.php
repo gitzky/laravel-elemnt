@@ -18,7 +18,9 @@
 // */
 
 Route::redirect('/', '/home', 301);
-
+ 
+// 文件上传到七牛
+Route::any('/api/upload','UploadController@uploadFile');
 
 Route::namespace('Home')->group(function(){
     Route::any('/home', function () {
@@ -33,6 +35,7 @@ Route::namespace('Home')->group(function(){
         定义后台路由组
 -------------------------------------------------------------------------------------------------------------
 */
+
 
 
 
@@ -58,18 +61,20 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/menu/updMenuById',"MenuController@updMenuById");
   Route::any('/api/menu/delMenuById',"MenuController@delMenuById");
   
-  // 上传图片
-  Route::any('/upload',"UploadController@upload");
-  Route::any('/api/upload',"UploadController@uploadImg");
-  
+
+
   
   // 文章管理
-  Route::any('/api/post/addNewPost',"PostManageController@addNewPost");
-  Route::any('/api/post/selPostListByParams',"PostManageController@selPostList");
+  Route::any('/api/post/addNewPost',"PostController@addNewPost");
+  Route::any('/api/post/selPostListByParams',"PostController@selPostList");
+  Route::any('/api/post/selPostById',"PostController@selPostById");
+  Route::any('/api/post/delPostById',"PostController@delPostById");
+  Route::any('/api/post/updPostById',"PostController@updPostById");
   
-  Route::any('/api/post/selPostTypeList',"PostManageController@selPostTypeList");
-  Route::any('/api/post/addPostType',"PostManageController@addPostType");
-  Route::any('/api/post/delPostType',"PostManageController@delPostType");
+  Route::any('/api/post/selPostTypeList',"PostController@selPostTypeList");
+  Route::any('/api/post/addPostType',"PostController@addPostType");
+  Route::any('/api/post/delPostType',"PostController@delPostType");
+  Route::any('/api/post/updPostType',"PostController@updPostType");
 
 });
 

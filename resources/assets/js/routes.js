@@ -80,14 +80,14 @@ let adminRoutes = [
       component: require("./components/Admin/PostManage/AddPost")
   },
   {
+      path: "/admin/postManage/updPost/:id",
+      name:'修改文章',
+      component: require("./components/Admin/PostManage/UpdPost")
+  },
+  {
       path: "/admin/postManage/postList",
       name:'文章列表',
       component: require("./components/Admin/PostManage/PostList")
-  },
-  {
-      path: "/admin/postManage/addPostType",
-      name:'新增文章类型',
-      component: require("./components/Admin/PostManage/AddPostType")
   },
   {
       name:'文章类型',

@@ -63,6 +63,14 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+        
+        'qiniu' => [
+            'driver' => 'qiniu',
+            'access_key' => 'rCmyfdrkAe7vMPWR4o0z1V5dz4_ooFC-QqgC-JpE',    // 个人中心秘钥管理获取的Accesskey
+            'secret_key' => 'dimaTQIrEscPv96E-TFK8DyaHMcp2wHlySL8ztkG',    // 个人中心秘钥管理获取的SecretKey
+            'bucket' => 'images',           // 空间名称test
+            'domain' => 'pr6as55qk.bkt.clouddn.com',           // 空间绑定的域名，带上http 或者 https
+        ]
 
     ],
 

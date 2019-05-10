@@ -37,7 +37,11 @@ class Controller extends BaseController
         return json_encode($response);
     }
     
-    // 增
+    /*
+      增加
+      @params $arg 字段参数
+      @params $database 操作的表
+    */
     public function add($arg, $database)
     {
         $res = DB::table($database)->insert($arg); 
@@ -56,7 +60,6 @@ class Controller extends BaseController
     // 改
     public function updById($id, $arg, $database)
     {
-       
         $res = DB::table($database)
             ->where('id', $id)
             ->update($arg);

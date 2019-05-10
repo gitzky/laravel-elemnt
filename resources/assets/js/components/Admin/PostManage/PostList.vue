@@ -76,12 +76,12 @@ export default {
 
     edit(row) {
       this.$router.push({
-        path: `/admin/menuManage/addMenu/${row.id}`
+        path: `/admin/postManage/updPost/${row.id}`
       })
     },
     addMenu() {
       this.$router.push({
-        path: `/admin/menuManage/addMenu`
+        path: `/admin/postManage/addPost`
       })
     },
     del(row) {
@@ -91,7 +91,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.loading = true
-        this.$store.dispatch('menu/delMenuById', {
+        this.$store.dispatch('postManage/delPostById', {
           id: row.id
         }).then(response => {
           this.loading = false

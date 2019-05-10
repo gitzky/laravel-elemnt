@@ -16,8 +16,8 @@
           /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
           ::-webkit-scrollbar
           {
-              width: 3px;
-              height: 3px;
+              width: 8px;
+              height: 0px;
               background-color:#f2f2f2
           }
           /*定义滚动条轨道 内阴影+圆角*/
@@ -39,7 +39,7 @@
         </style>
     </head>
     <body>
-       <script type="text/javascript" src="http://static.nxin.com/plug/help/index.js"></script>
+<!--       <script type="text/javascript" src="http://static.nxin.com/plug/help/index.js"></script> -->
        <div id="app">
            <admin-layout></admin-layout>
        </div>
