@@ -94,7 +94,12 @@ let adminRoutes = [
       path: "/admin/postManage/postType",
       component:require("./components/Admin/PostManage/PostTypeList")
   },
-
+  // 首页站点公告
+  {
+      path: "/admin/webNotice/index",
+      name:'首页公告',
+      component: require("./components/Admin/WebNotice")
+  },
   // 设置
   {
       name:'设置',

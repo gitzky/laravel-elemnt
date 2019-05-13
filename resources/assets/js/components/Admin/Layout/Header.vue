@@ -37,14 +37,14 @@
     },
     methods: {
     	logout() {
-    	  this.$store.dispatch('admin/logout').then(res => {
+    	  this.$store.dispatch('admin/login/logout').then(res => {
     	    if (res.code === '0') {
     	      location.reload()
     	    }
     	  })
     	},
       getMemberInfo() {
-        this.$store.dispatch('admin/getMemberInfo').then(res => {
+        this.$store.dispatch('admin/login/getMemberInfo').then(res => {
           if (res.code === '0') {
             this.memberInfo = res.data
           }

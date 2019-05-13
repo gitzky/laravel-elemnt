@@ -1,7 +1,7 @@
 import {
   logout,
   getMemberInfo
-} from '../../api/admin'
+} from '../../../api/admin/login'
 
 export default {
   namespaced: true,

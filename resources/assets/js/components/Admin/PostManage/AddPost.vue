@@ -49,8 +49,12 @@
           </el-form-item>
           <el-form-item
             label="文章内容"
-            label-width="80px">
-            <Editor :postContent = "form.postContent" @getPostContent="getPostContent" />
+            label-width="80px"
+            prop="postContent" :rules="{
+              required:true,
+              message:'请输文章内容'
+            }">
+            <Editor :father-content = "form.postContent" @getContent="getContent" />
           </el-form-item>
         </el-form>
       </el-col>
@@ -74,9 +78,15 @@
           <p class="red">点击预览可以预览您要提交的内容</p>
           <p class="red">若确定无误，请点击提交</p>
           <div class="box10"></div>
-          <el-button size="small" @click="resetForm('form')">重置</el-button>
-          <el-button size="small" @click="viewPost('form')">预览</el-button>
-          <el-button size="small" class="w80" type="primary" @click="commitPost('form')">提交</el-button>
+          <div>
+            <el-button size="small" class="w80 mar10_r" type="danger" @click="resetForm('form')">重置</el-button>
+            <el-button size="small" class="w120 mar10_r" type="success" @click="viewPost('form')">预览</el-button>
+          </div>
+          <div class="box10"></div>
+          <div>
+            <el-button size="small" class="w80 mar10_r" type="info" @click="back('form')">返回</el-button>
+            <el-button size="small" class="w120 mar10_r" type="primary" @click="commitPost('form')">提交</el-button>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -110,12 +120,15 @@
           this.getPostType()
         },
         methods:{
+          back() {
+            this.$router.back()
+          },
           resetForm(formName) {
             this.form.postContent = ''
             this.$refs[formName].resetFields();
           },
           getPostType() {
-            this.$store.dispatch('postManage/selPostTypeList').then(res => {
+            this.$store.dispatch('admin/postManage/selPostTypeList').then(res => {
               this.postTypes = res.list || []
             })
           },
@@ -136,7 +149,7 @@
                 return false
               }
               let reqForm = Object.assign({},{ imageUrl: this.imageUrl }, this.form)
-              this.$store.dispatch('postManage/addNewPost', reqForm).then(res => {
+              this.$store.dispatch('admin/postManage/addNewPost', reqForm).then(res => {
                 console.log(res)
                 if (res.code === '0') {
                   this.$message({
@@ -148,7 +161,7 @@
               })
             })
           },
-          getPostContent(data) {
+          getContent(data) {
             console.log('DATA',data)
             this.form.postContent = data
           },

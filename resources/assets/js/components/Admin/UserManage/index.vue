@@ -105,7 +105,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch('member/resetQyLoginPwd', {
+        this.$store.dispatch('admin/member/resetQyLoginPwd', {
           boId: id
         }).then(response => {
           if (response.code === '0') {
@@ -165,7 +165,7 @@ export default {
         pageNum: this.pagination.currentPage,
         pageSize: this.pagination.pageSize
       }
-      this.$store.dispatch('userManage/selUserList', formCon).then(response => {
+      this.$store.dispatch('admin/userManage/selUserList', formCon).then(response => {
         this.loading = false
         if(response.code === '0') {
           

@@ -22,11 +22,17 @@ Route::redirect('/', '/home', 301);
 // 文件上传到七牛
 Route::any('/api/upload','UploadController@uploadFile');
 
-Route::namespace('Home')->group(function(){
-    Route::any('/home', function () {
+Route::prefix('home')->namespace('Home')->group(function(){
+    Route::any('/', function () {
         return view('Home');
     });
-    Route::any('/api/admin/selListByParams/{params}',"HomeController@index");
+    
+    Route::any('/api/index/selPostList',"HomeController@selPostList");
+    Route::any('/api/index/selNotice',"HomeController@selNotice");
+    Route::any('/api/index/selHotTags',"HomeController@selHotTags");
+
+    
+
 
 });
 
@@ -35,10 +41,6 @@ Route::namespace('Home')->group(function(){
         定义后台路由组
 -------------------------------------------------------------------------------------------------------------
 */
-
-
-
-
 
 Route::get('/admin/user/login','Admin\LoginController@login');
 Route::any('/admin/user/doLogin','Admin\LoginController@doLogin');
@@ -61,8 +63,6 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/menu/updMenuById',"MenuController@updMenuById");
   Route::any('/api/menu/delMenuById',"MenuController@delMenuById");
   
-
-
   
   // 文章管理
   Route::any('/api/post/addNewPost',"PostController@addNewPost");
@@ -75,6 +75,10 @@ Route::prefix('admin')->namespace('Admin')->middleware('login')->group(function(
   Route::any('/api/post/addPostType',"PostController@addPostType");
   Route::any('/api/post/delPostType',"PostController@delPostType");
   Route::any('/api/post/updPostType',"PostController@updPostType");
+  
+  // 站点公告
+  Route::any('/api/webNotice/editNotice',"WebNoticeController@editNotice");
+  Route::any('/api/webNotice/selNotice',"WebNoticeController@selNotice");
 
 });
 

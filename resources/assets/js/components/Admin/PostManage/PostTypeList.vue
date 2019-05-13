@@ -117,7 +117,7 @@
     methods: {
       checkedHotTags(id,isChecked) {
         console.log(id,isChecked)
-        this.$store.dispatch('postManage/updPostType', { id,isChecked }).then(res => {
+        this.$store.dispatch('admin/postManage/updPostType', { id,isChecked }).then(res => {
           console.log(res)
           if (res.code === '0') {
             this.$message({
@@ -129,12 +129,12 @@
         
       },
       loadData() {
-        this.$store.dispatch('postManage/selPostTypeList').then(res => {
+        this.$store.dispatch('admin/postManage/selPostTypeList').then(res => {
           this.dynamicTags = res.list || []
         })
       },
       handleClose(tag) {
-        this.$store.dispatch('postManage/delPostType' ,{id:tag.id}).then(res => {
+        this.$store.dispatch('admin/postManage/delPostType' ,{id:tag.id}).then(res => {
           if (res.code === '0') {
             this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
             this.$message({
@@ -155,7 +155,7 @@
       handleInputConfirm() {
         let inputValue = this.inputValue;
         if (inputValue) {
-          this.$store.dispatch('postManage/addPostType' ,{code:inputValue,type:this.theme}).then(res => {
+          this.$store.dispatch('admin/postManage/addPostType' ,{code:inputValue,type:this.theme}).then(res => {
             if (res.code === '0') {
               this.$message({
                 type:'success',

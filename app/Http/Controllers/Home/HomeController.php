@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-header('Content-type:text/json');
+
 class HomeController extends Controller
 {
     /*
@@ -20,4 +20,31 @@ class HomeController extends Controller
         // $this->selListByParams($arg,'0','user');
         $this->selById($arg,'0','user');
     }
+    
+    public function selPostList(Request $request)
+    {
+        $pageNum = $request->input('pageNum');
+        $pageSize = $request->input('pageSize');
+        $reqFormList = $request->input('reqFormList');
+        $this->selListByParams($pageNum,$pageSize,$reqFormList,'posts');
+    }
+    
+    public function selNotice()
+    {
+        $this->selById(1, 'notice');
+    }
+    
+    public function selHotTags(Request $request)
+    {
+        $pageNum = 1;
+        $pageSize = 100;
+        $reqFormList = array(
+            'isChecked' => 1
+        );
+        $this->selListByParams($pageNum, $pageSize, $reqFormList, 'post_type');
+    }
+    
+    
 }
+
+

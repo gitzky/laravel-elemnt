@@ -10,7 +10,7 @@ import {
   delPostType,
   updPostType,
   
-} from '../../api/postManage'
+} from '../../../api/admin/postManage'
 
 export default {
   namespaced: true,

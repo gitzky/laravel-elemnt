@@ -1,176 +1,121 @@
 <template>
-
   <div class="container">
-    <div class="row w_main_row">
-      
-      <!--左侧开始-->
-      <div class="col-lg-9 col-md-9 w_main_left">
+    <div class="box20"></div>
+    <el-row>
+      <el-col :span="18" class="mar20_b">
+        <div class="grid-content bg-purple pad10_r">
+          <el-carousel :interval="3000" height="350px">
+            <el-carousel-item :key="index" v-for="(item,index) in swiper" class="relative">
+              <div class="tip">
+                <h3>{{ item.tip_title }}</h3>
+                <p>{{ item.tip_content }}</p>
+              </div>
+              <el-image
+                style="width: 100%; height:100%;"
+                :src="item.url"
+                fit="contain">
+              </el-image>
+            </el-carousel-item>
+          </el-carousel>
+          
+          <div class="box20"></div>
+          <el-card class="box-card mar20_b contenttop">
+            <a href="article_detail.html">
+              <strong>博主置顶</strong>
+              <h3 class="title">嫁人就嫁程序员</h3>
+              <p class="overView">个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中。。。</p>
+            </a>
+          </el-card>
+          <div class="box20"></div>
+          <el-container>
+            <el-header class="border" style="height: 40px;line-height: 40px;border-bottom: none;">最新发布</el-header>
+            <el-main class="border b_white">
+                <div class="contentList">
+                  <div class="panel panel-default" :key="item.id" v-for="item in tableData">
+                    <div class="panel-body cur" @click="goDetail(item.id)">
+                      <div class="contentleft">
+                        <h4><a class="title" href="article_detail">{{ item.newsName }}</a></h4>
+                        <p>
+                          <a class="label label-default" :key="index" v-for="(types,index) in item.newsType">{{ types }}</a>
+                        </p>
+                        <p class="overView">{{ item.newsIntro }}</p>
+                        <p>
+                          <span class="count">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <a href="#">{{ item.newsAuthor }}</a>
+                          </span>
+                          <span class="count">
+                            <i class="glyphicon glyphicon-eye-open"></i>阅读:1003
+                          </span>
+                          <span class="count">
+                            <i class="glyphicon glyphicon-comment"></i>评论:2
+                          </span>
+                          <span class="count">
+                            <i class="glyphicon glyphicon-time"></i>
+                            {{ item.newsTime }}
+                          </span>
+                        </p>
+                      </div>
+                      <div class="contentImage">
+                        <div class="row">
+                          <el-image
+                            class="border"
+                            style="width: 100%; height:100%;"
+                            :src="item.newsIntroImg"
+                            fit="corver" lazy>
+                          </el-image>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <el-row style="padding-top:10px;" type="flex" justify="end">
+                  <el-pagination background  :page-sizes="[5, 10, 15]" layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pagination.currentPage" :page-size="pagination.pageSize" :total="pagination.total" />
+                </el-row>
+            </el-main>
+          </el-container>
+        </div>
+      </el-col>
+      <el-col :span="6" class="pad10_l">
+        <div class="grid-content bg-purple-light">
+          <div class="panel panel-default sitetip">
+            <a class="notice" href="article_detail.html">
+              <strong>站点公告</strong>
+              <h3 class="title">{{ notice.title }}</h3>
+              <p class="overView" v-html="notice.content"></p>
+            </a>
+          </div>
+        </div>
         
-        <!--轮播图开始-->
-        <div class="panel panel-default">
-          <div id="w_carousel" class="carousel slide w_carousel" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-              <li data-target="#w_carousel" data-slide-to="0" class="active"></li>
-              <li data-target="#w_carousel" data-slide-to="1"></li>
-              <li data-target="#w_carousel" data-slide-to="2"></li>
-              <li data-target="#w_carousel" data-slide-to="3"></li>
-            </ol>
-
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-              <div class="item active">
-                <img src="/img/slider/slide1.jpg" alt="...">
-                <div class="carousel-caption">
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </div>
-              </div>
-              <div class="item">
-                <img src="/img/slider/slide2.jpg" alt="...">
-                <div class="carousel-caption">...</div>
-              </div>
-              <div class="item">
-                <img src="/img/slider/slide3.jpg" alt="...">
-                <div class="carousel-caption">...</div>
-              </div>
-              <div class="item">
-                <img src="/img/slider/slide4.jpg" alt="...">
-                <div class="carousel-caption">...</div>
-              </div>
-            </div>
-
-            <!-- Controls -->
-            <a class="left carousel-control" href="#w_carousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#w_carousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-
-			</div>
-
-        <div class="panel panel-default contenttop">
-          <a href="article_detail.html">
-            <strong>博主置顶</strong>
-            <h3 class="title">嫁人就嫁程序员</h3>
-            <p class="overView">个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中个人网站正在建设中。。。</p>
-          </a>
-        </div>
-
-
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">最新发布</h3>
-          </div>
-
-          <div class="panel-body">
-            <!--文章列表开始-->
-            <div class="contentList">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="contentleft">
-                    <h4><a class="title" href="article_detail">使用 Nginx 实现 tomcat、glassfish 等 web 服务器负载均衡</a></h4>
-                    <p>
-                      <a class="label label-default">Nginx</a>
-                      <a class="label label-default">tomcat负载均衡</a>
-                    </p>
-                    <p class="overView">1.web服务器负载均衡简介web服务器负载均衡是指将多台可用单节点服务器组合成web服务器集群，然后通过负载均衡器将客户端请求均匀的转发到不同的单节点web服务器上，从而增加整个web服务器集群的吞吐量。</p>
-                    <p><span class="count"><i class="glyphicon glyphicon-user"></i><a href="#">admin</a></span> <span class="count"><i class="glyphicon glyphicon-eye-open"></i>阅读:1003</span><span class="count"><i class="glyphicon glyphicon-comment"></i>评论:2</span><span class="count"><i class="glyphicon glyphicon-time"></i>2017-01-16</span></p>
-                  </div>
-                  <div class="contentImage">
-                    <div class="row">
-                      <a href="#" class="thumbnail w_thumbnail">
-                        <img src="img/slider/Aj6bieY.jpg" alt="...">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="contentleft">
-                    <h4><a class="title" href="/post/41501569">使用 Nginx 实现 tomcat、glassfish 等 web 服务器负载均衡</a></h4>
-                    <p>
-                      <a class="label label-default">Nginx</a>
-                      <a class="label label-default">tomcat负载均衡</a>
-                    </p>
-                    <p class="overView">1.web服务器负载均衡简介web服务器负载均衡是指将多台可用单节点服务器组合成web服务器集群，然后通过负载均衡器将客户端请求均匀的转发到不同的单节点web服务器上，从而增加整个web服务器集群的吞吐量。</p>
-                    <p><span class="count"><i class="glyphicon glyphicon-user"></i><a href="#">admin</a></span> <span class="count"><i class="glyphicon glyphicon-eye-open"></i>阅读:852</span><span class="count"><i class="glyphicon glyphicon-comment"></i>评论:99</span><span class="count"><i class="glyphicon glyphicon-time"></i>2016-08-25</span></p>
-                  </div>
-                  <div class="contentImage">
-                    <!--<img src="img/slider/67zmaej.png"/>-->
-                    <div class="row">
-                      <a href="#" class="thumbnail w_thumbnail">
-                        <img src="img/slider/67zmaej.png" alt="...">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!--文章列表结束-->
-
-          </div>
-        </div>
-		
-      </div>
-
-		<!--右侧开始-->
-      <div class="col-lg-3 col-md-3 w_main_right">
-
-        <div class="panel panel-default sitetip">
-          <a class="notice" href="article_detail.html">
-            <strong>站点公告</strong>
-            <h3 class="title">标题</h3>
-            <p class="overView">11</p>
-          </a>
-        </div>
-
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">热门标签</h3>
           </div>
           <div class="panel-body">
-            <div class="labelList">
-              <a class="label label-default" href="#">标签</a>
-              <a href="javascript:;">暂无热门标签</a>
+            <div class="min-h80">
+              <a class="label label-default mar10_r" :key="index" v-for="(item,index) in hotTags">{{ item.code }}</a>
             </div>
           </div>
         </div>
-
+        
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">热门文章</h3>
           </div>
           <div class="panel-body">
-            <ul class="list-unstyled sidebar">
-              <li>
-                <a href="/post/04928311">排序算法之冒泡排序 － java实现</a>
-              </li>
-              <li>
-                <a href="/post/32097759">快速搭建基于二进制日志文件的 mysql 复制</a>
-              </li>
-              <li>
-                <a href="/post/09196557">web 服务器负载均衡教程，快速搭建高可用服务器集群</a>
-              </li>
-              <li>
-                <a href="/post/20654391">使用 redis 和 spring-session 实现 tomcat、glassfish 等 web 服务器集群 session 共享</a>
-              </li>
-              <li>
-                <a href="/post/41501569">使用 Nginx 实现 tomcat、glassfish 等 web 服务器负载均衡</a>
-              </li>
-            </ul>
+            <el-carousel height="250px" direction="vertical" :autoplay="true">
+              <el-carousel-item v-for="(items,n) in hotPosts" :key="n">
+                <ul class="list-unstyled sidebar">
+                  <li v-for="item in items" :key="item.id" class="over_hide" style="width: 240px;">
+                    <a style="padding-top:5px;display: block;height: 42px;;line-height: 20px;" href="/post/04928311">{{ item.newsIntro }}</a>
+                  </li>
+                </ul>
+              </el-carousel-item>
+            </el-carousel>
           </div>
         </div>
-
         
-
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">关注微信公众号</h3>
@@ -179,9 +124,130 @@
             <img src="img/qrcode.jpg" style="height: 230.5px;width: 230.5px;" />
           </div>
         </div>
-
-      </div>
-    </div>
+        
+      </el-col>
+    </el-row>
   </div>
 
 </template> 
+<script>
+  export default {
+    data() {
+      return {
+        swiper:[{
+          url:'/img/slider/slide1.jpg',
+          tip_title: 'First slide label',
+          tip_content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+        },
+        {
+          url:'/img/slider/slide2.jpg',
+          tip_title: 'Second slide label',
+          tip_content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+        },
+        {
+          url:'/img/slider/slide3.jpg',
+          tip_title: 'Three slide label',
+          tip_content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+        },
+        {
+          url:'/img/slider/slide4.jpg',
+          tip_title: 'Four slide label',
+          tip_content: 'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+        }],
+        tableData: [],
+        notice: {},
+        hotTags: [],
+        hotPosts:[],
+        pagination: {
+          total: 1,
+          currentPage: 1,
+          pageSize: 5
+        }
+      }
+    },
+    created() {
+      this.loadData()
+      this.getNotice()
+      this.getHotTags()
+      this.getHotPosts()
+    },
+    methods: {
+      
+      goDetail(id) {
+        console.log(id)
+        this.$router.push('/')
+      },
+      // 分页
+      handleSizeChange(val) {
+        this.pagination.pageSize = val;
+        this.loadData()
+      },
+      handleCurrentChange(val) {
+        this.pagination.currentPage = val;
+        this.loadData()
+      },
+      loadData() {
+        const formCon = {
+          pageNum: this.pagination.currentPage,
+          pageSize: this.pagination.pageSize
+        }
+        this.$store.dispatch('home/index/selPostList', formCon).then(res => {
+          if(res) {
+            res.list.forEach(v=> {
+              v.newsType = v.newsType.split(',')
+            })
+            this.tableData = res.list
+            console.log(this.tableData)
+            this.pagination.total = res.total
+          }
+        })
+      },
+      
+      getHotPosts() {
+        const formCon = {
+          pageNum: 1,
+          pageSize: 15
+        }
+        this.$store.dispatch('home/index/selPostList', formCon).then(res => {
+          if(res) {
+            const len = res.list.length
+            let n = Math.ceil(len/5)
+            
+            for(var i = 0;i < n; i++) {
+              this.hotPosts.push(res.list.slice(i*5, (i+1)*5));
+            }
+          }
+        })
+      },
+      
+      getNotice() {
+        this.$store.dispatch('home/index/selNotice').then(res => {
+          if(res) {
+            this.notice = res
+          }
+        })
+      },
+      
+      getHotTags() {
+        this.$store.dispatch('home/index/selHotTags').then(res => {
+          if(res) {
+            this.hotTags = res.list
+            console.log(this.hotTags)
+          }
+        })
+      },
+      
+    }
+  }
+  
+  
+</script>
+<style>
+  .tip{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    color: white;
+  }
+</style>

@@ -1,7 +1,7 @@
 import {
   selUserList,
   selUserById
-} from '../../api/userManage'
+} from '../../../api/admin/userManage'
 
 export default {
   namespaced: true,

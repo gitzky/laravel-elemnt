@@ -91,7 +91,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.loading = true
-        this.$store.dispatch('postManage/delPostById', {
+        this.$store.dispatch('admin/postManage/delPostById', {
           id: row.id
         }).then(response => {
           this.loading = false
@@ -115,7 +115,7 @@ export default {
         pageNum: this.pagination.currentPage,
         pageSize: this.pagination.pageSize
       }
-      this.$store.dispatch('postManage/selPostList', formCon).then(response => {
+      this.$store.dispatch('admin/postManage/selPostList', formCon).then(response => {
         if (response) {
           this.loading = false
           this.pagination.total = response.total

@@ -1,4 +1,4 @@
-import request from '../untils/request'
+import request from '../../untils/request'
 
 export function addNewPost(arg) {
   return request.post('admin/api/post/addNewPost', arg)

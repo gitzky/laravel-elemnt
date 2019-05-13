@@ -61,7 +61,7 @@ export default {
           "axis": "$1",
         }
       }
-      this.$store.dispatch('menu/selMenuList', formCon).then(response => {
+      this.$store.dispatch('admin/menu/selMenuList', formCon).then(response => {
         console.log(response,'11')
         this.parentList = response.list
       })
@@ -72,7 +72,7 @@ export default {
         if (valid) {
           this.columnForm.axis = this.columnForm.parentId?'$1$' + this.columnForm.parentId : '$1'
           const formCon = columnForm
-          this.$store.dispatch('menu/addMenu', formCon).then(response => {
+          this.$store.dispatch('admin/menu/addMenu', formCon).then(response => {
             this.$message({
               type: 'success',
               message: '操作成功!'

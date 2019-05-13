@@ -1,4 +1,4 @@
-import request from '../untils/request'
+import request from '../../untils/request'
 
 export function addMenu(arg) {
   return request.post('admin/api/menu/addMenu',arg)

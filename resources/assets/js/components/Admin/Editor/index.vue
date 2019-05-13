@@ -23,11 +23,11 @@
 <script>
     import { quillEditor } from 'vue-quill-editor'
     export default{
-        props:['postContent'],
+        props:['fatherContent'],
         data(){
             return {
                 size: 100,
-                content: this.postContent,
+                content: this.fatherContent,
                 editorOption: {}
             }
         },
@@ -37,19 +37,19 @@
             }
         },
         watch: {
-           postContent(val) {
+           fatherContent(val) {
                this.content = val
            } 
         },
         methods:{
             onEditorBlur(val){//失去焦点事件
-              this.$emit('getPostContent', val)
+              this.$emit('getContent', val)
             },
             onEditorFocus(val){//获得焦点事件
-                this.$emit('getPostContent', val)
+                this.$emit('getContent', val)
             },
             onEditorChange(val){//内容改变事件
-                this.$emit('getPostContent', val)
+                this.$emit('getContent', val)
             }
         }
     }

@@ -81,7 +81,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.loading = true
-        this.$store.dispatch('menu/delMenuById', {
+        this.$store.dispatch('admin/menu/delMenuById', {
           id: row.id
         }).then(response => {
           this.loading = false
@@ -105,7 +105,7 @@ export default {
         pageNum: this.pagination.currentPage,
         pageSize: this.pagination.pageSize
       }
-      this.$store.dispatch('menu/selMenuList', formCon).then(response => {
+      this.$store.dispatch('admin/menu/selMenuList', formCon).then(response => {
         if (response) {
           this.loading = false
           this.pagination.total = response.total

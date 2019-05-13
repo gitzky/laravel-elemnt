@@ -1,4 +1,4 @@
-import request from '../untils/request'
+import request from '../../untils/request'
 // 查会员列表
 export function selUserList(arg) {
   return request.post('admin/api/user/selUserList', arg)

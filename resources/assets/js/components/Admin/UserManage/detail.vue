@@ -40,7 +40,7 @@ export default {
       this.$router.back()
     },
     loadData(id) {
-      this.$store.dispatch('userManage/selUserById', { id }).then(response => {
+      this.$store.dispatch('admin/userManage/selUserById', { id }).then(response => {
         this.tableData = response
         console.log(response)
       })

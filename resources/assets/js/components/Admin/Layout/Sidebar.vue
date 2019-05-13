@@ -47,15 +47,19 @@
         routes: []
       }
     },
-
     created() {
       this.defaultPath = this.$route.path
       this.loadData()
     },
+    watch: {
+      $route() {
+        this.defaultPath = this.$route.path
+      }
+    },
     methods: {
       loadData() {
         this.loading = true
-        this.$store.dispatch('menu/selMenuList').then(response => {
+        this.$store.dispatch('admin/menu/selMenuList').then(response => {
           if (response) {
             let routes = []
             response.list.forEach(item => {

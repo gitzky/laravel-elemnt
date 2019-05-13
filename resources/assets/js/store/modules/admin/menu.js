@@ -4,7 +4,7 @@ import {
   selMenuById,
   updMenuById,
   delMenuById
-} from '../../api/menu'
+} from '../../../api/admin/menu'
 
 export default {
   namespaced: true,

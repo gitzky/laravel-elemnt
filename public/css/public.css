@@ -51,6 +51,7 @@ ul,li{margin:0px;padding:0px;list-style:none;}
 .l_cross1{text-decoration:underline;}
 .img_w{width:auto;height:auto;max-height:100%;max-width:100%;margin:0px auto;}
 /*取消换行*/
+.cur{cursor: pointer;}
 .ellipsis{display:inline-block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;word-break:keep-all;white-space:nowrap}
 
 /*width*/
@@ -80,7 +81,11 @@ ul,li{margin:0px;padding:0px;list-style:none;}
 .w999{width:999px;}
 .w1010{width:1010px;}
 .w1200,.wrap1200{width:1200px;margin:0px auto;}
+.w60_per{width: 60%;}
+.w80_per{width: 80%;}
+.w100_per{width: 100%;}
 /*height*/
+.h20{height:20px;}
 .h50{height:50px;}
 .h55{height: 55px;}
 .h60{height:60px;}
@@ -103,6 +108,11 @@ ul,li{margin:0px;padding:0px;list-style:none;}
 .min-h80{min-height:80px;}
 .min-h100{min-height:100px;}
 .min-h120{min-height:120px;}
+.min-h240{min-height:240px;}
+.min-h420{min-height:420px;}
+/*max-height*/
+.max-h30{max-height:30px;}
+.max-h60{max-height:60px;}
 /*color*/
 .gray_3{color:#333;}
 .gray_5{color:#555;}
@@ -248,6 +258,8 @@ ul,li{margin:0px;padding:0px;list-style:none;}
 .bor_red{border:1px solid #ff0023;}
 .border_red{border:1px solid #e24a2f;}
 .border_dot{border:1px dotted #ccc;}
+.border_ddd{border:1px dotted #ddd !important}
+.bor_t_no{border-top: none;}
 /*line-height*/
 .line_h21{line-height: 21px;}
 .line_h25{line-height: 25px;}
