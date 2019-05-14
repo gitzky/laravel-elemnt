@@ -5,7 +5,7 @@
       <el-col :span="18" class="mar20_b">
         <div class="grid-content bg-purple pad10_r">
           <el-carousel :interval="3000" height="350px">
-            <el-carousel-item :key="index" v-for="(item,index) in swiper" class="relative">
+            <el-carousel-item :key="index" v-for="(item,index) in swiper" class="relative text-center">
               <div class="tip">
                 <h3>{{ item.tip_title }}</h3>
                 <p>{{ item.tip_content }}</p>
@@ -13,7 +13,7 @@
               <el-image
                 style="width: 100%; height:100%;"
                 :src="item.url"
-                fit="contain">
+                fit="cover">
               </el-image>
             </el-carousel-item>
           </el-carousel>
@@ -34,7 +34,7 @@
                   <div class="panel panel-default" :key="item.id" v-for="item in tableData">
                     <div class="panel-body cur" @click="goDetail(item.id)">
                       <div class="contentleft">
-                        <h4><a class="title" href="article_detail">{{ item.newsName }}</a></h4>
+                        <h4><a class="title" href="javascript:;" @click="goDetail(item.id)">{{ item.newsName }}</a></h4>
                         <p>
                           <a class="label label-default" :key="index" v-for="(types,index) in item.newsType">{{ types }}</a>
                         </p>
@@ -93,12 +93,12 @@
             <h3 class="panel-title">热门标签</h3>
           </div>
           <div class="panel-body">
-            <div class="min-h80">
-              <a class="label label-default mar10_r" :key="index" v-for="(item,index) in hotTags">{{ item.code }}</a>
+            <div class="labelList min-h80">
+              <a :key="index" v-for="(item,index) in hotTags" class="label label-default" href="javascript:;">{{ item.code }}</a>
             </div>
           </div>
         </div>
-        
+
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">热门文章</h3>
@@ -107,8 +107,8 @@
             <el-carousel height="250px" direction="vertical" :autoplay="true">
               <el-carousel-item v-for="(items,n) in hotPosts" :key="n">
                 <ul class="list-unstyled sidebar">
-                  <li v-for="item in items" :key="item.id" class="over_hide" style="width: 240px;">
-                    <a style="padding-top:5px;display: block;height: 42px;;line-height: 20px;" href="/post/04928311">{{ item.newsIntro }}</a>
+                  <li v-for="item in items" :key="item.id" class="over_hide" style="width: 240px;" @click="goDetail(item.id)">
+                    <a style="padding-top:5px;display: block;height: 42px;;line-height: 20px;" href="javascript:;">{{ item.newsIntro }}</a>
                   </li>
                 </ul>
               </el-carousel-item>
@@ -175,7 +175,7 @@
       
       goDetail(id) {
         console.log(id)
-        this.$router.push('/')
+        this.$router.push(`/articles/detail/${id}`)
       },
       // 分页
       handleSizeChange(val) {
@@ -212,7 +212,6 @@
           if(res) {
             const len = res.list.length
             let n = Math.ceil(len/5)
-            
             for(var i = 0;i < n; i++) {
               this.hotPosts.push(res.list.slice(i*5, (i+1)*5));
             }

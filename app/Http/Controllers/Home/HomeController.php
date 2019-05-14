@@ -15,10 +15,9 @@ class HomeController extends Controller
         第三个参数：操作哪张表
     */
     //文章列表
-    public function index(Request $request, $arg){
-        $arg = json_decode($arg)->id;
-        // $this->selListByParams($arg,'0','user');
-        $this->selById($arg,'0','user');
+    public function selPostById(Request $request){
+        $arg = $request->input('id');
+        $this->selById($arg,'posts');
     }
     
     public function selPostList(Request $request)

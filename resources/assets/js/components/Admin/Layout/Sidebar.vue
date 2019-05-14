@@ -12,6 +12,8 @@
       class="el-menu-vertical-demo"
       router
       :collapse="isOpen"
+      unique-opened
+      collapse-transition
       style="border:none;min-height: 100%;">
       <div :key="items.id" v-for="items in routes">
         <div v-if="items.children.length">

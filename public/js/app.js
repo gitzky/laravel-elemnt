@@ -118024,7 +118024,18 @@ var render = function() {
             _c(
               "li",
               [
-                _c("router-link", { attrs: { to: "/index" } }, [_vm._v("首页")])
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "router-link-exact-active",
+                    class: {
+                      "router-link-active":
+                        _vm.$route.path.split("/")[1] == "index"
+                    },
+                    attrs: { exact: "", to: "/index" }
+                  },
+                  [_vm._v("首页")]
+                )
               ],
               1
             ),
@@ -118032,9 +118043,18 @@ var render = function() {
             _c(
               "li",
               [
-                _c("router-link", { attrs: { to: "/articles" } }, [
-                  _vm._v("文章")
-                ])
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "router-link-exact-active",
+                    class: {
+                      "router-link-active":
+                        _vm.$route.path.split("/")[1] == "articles"
+                    },
+                    attrs: { exact: "", to: "/articles" }
+                  },
+                  [_vm._v("文章")]
+                )
               ],
               1
             ),
@@ -118042,7 +118062,18 @@ var render = function() {
             _c(
               "li",
               [
-                _c("router-link", { attrs: { to: "/about" } }, [_vm._v("关于")])
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "router-link-exact-active",
+                    class: {
+                      "router-link-active":
+                        _vm.$route.path.split("/")[1] == "about"
+                    },
+                    attrs: { exact: "", to: "/about" }
+                  },
+                  [_vm._v("关于")]
+                )
               ],
               1
             ),
@@ -118050,9 +118081,18 @@ var render = function() {
             _c(
               "li",
               [
-                _c("router-link", { attrs: { to: "/comment" } }, [
-                  _vm._v("留言")
-                ])
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "router-link-exact-active",
+                    class: {
+                      "router-link-active":
+                        _vm.$route.path.split("/")[1] == "comment"
+                    },
+                    attrs: { exact: "", to: "/comment" }
+                  },
+                  [_vm._v("留言")]
+                )
               ],
               1
             )
@@ -118077,6 +118117,9 @@ var render = function() {
                 )
               ],
               1
+            ),
+            _vm._v(
+              "\n         " + _vm._s(_vm.$route.path.split("/")[1]) + "\n\t\t\t"
             )
           ],
           1
@@ -118507,6 +118550,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['isOpen'],
@@ -118624,7 +118669,9 @@ var render = function() {
             "element-loading-background": "rgba(0, 0, 0, 0.8)",
             "default-active": _vm.defaultPath,
             router: "",
-            collapse: _vm.isOpen
+            collapse: _vm.isOpen,
+            "unique-opened": "",
+            "collapse-transition": ""
           }
         },
         _vm._l(_vm.routes, function(items) {
@@ -119296,6 +119343,9 @@ var homeRoutes = [{
     path: "/articles",
     component: __webpack_require__(265)
 }, {
+    path: "/articles/detail/:id",
+    component: __webpack_require__(354)
+}, {
     path: "/about",
     component: __webpack_require__(267)
 }, {
@@ -119457,7 +119507,7 @@ var render = function() {
                   _vm._l(_vm.swiper, function(item, index) {
                     return _c(
                       "el-carousel-item",
-                      { key: index, staticClass: "relative" },
+                      { key: index, staticClass: "relative text-center" },
                       [
                         _c("div", { staticClass: "tip" }, [
                           _c("h3", [_vm._v(_vm._s(item.tip_title))]),
@@ -119467,7 +119517,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("el-image", {
                           staticStyle: { width: "100%", height: "100%" },
-                          attrs: { src: item.url, fit: "contain" }
+                          attrs: { src: item.url, fit: "cover" }
                         })
                       ],
                       1
@@ -119544,7 +119594,12 @@ var render = function() {
                                           "a",
                                           {
                                             staticClass: "title",
-                                            attrs: { href: "article_detail" }
+                                            attrs: { href: "javascript:;" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.goDetail(item.id)
+                                              }
+                                            }
                                           },
                                           [_vm._v(_vm._s(item.newsName))]
                                         )
@@ -119716,13 +119771,14 @@ var render = function() {
               _c("div", { staticClass: "panel-body" }, [
                 _c(
                   "div",
-                  { staticClass: "min-h80" },
+                  { staticClass: "labelList min-h80" },
                   _vm._l(_vm.hotTags, function(item, index) {
                     return _c(
                       "a",
                       {
                         key: index,
-                        staticClass: "label label-default mar10_r"
+                        staticClass: "label label-default",
+                        attrs: { href: "javascript:;" }
                       },
                       [_vm._v(_vm._s(item.code))]
                     )
@@ -119761,7 +119817,12 @@ var render = function() {
                               {
                                 key: item.id,
                                 staticClass: "over_hide",
-                                staticStyle: { width: "240px" }
+                                staticStyle: { width: "240px" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.goDetail(item.id)
+                                  }
+                                }
                               },
                               [
                                 _c(
@@ -119773,7 +119834,7 @@ var render = function() {
                                       height: "42px",
                                       "line-height": "20px"
                                     },
-                                    attrs: { href: "/post/04928311" }
+                                    attrs: { href: "javascript:;" }
                                   },
                                   [_vm._v(_vm._s(item.newsIntro))]
                                 )
@@ -126087,7 +126148,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     goDetail: function goDetail(id) {
       console.log(id);
-      this.$router.push('/');
+      this.$router.push('/articles/detail/' + id);
     },
 
     // 分页
@@ -126128,7 +126189,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (res) {
           var len = res.list.length;
           var n = Math.ceil(len / 5);
-
           for (var i = 0; i < n; i++) {
             _this2.hotPosts.push(res.list.slice(i * 5, (i + 1) * 5));
           }
@@ -127034,7 +127094,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["c" /* selPostList */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["d" /* selPostList */])(arg);
 
               case 2:
                 response = _context.sent;
@@ -127054,7 +127114,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return selPostList;
     }(),
-    selNotice: function () {
+    selPostById: function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(context, arg) {
         var response;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
@@ -127062,7 +127122,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["b" /* selNotice */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["c" /* selPostById */])(arg);
 
               case 2:
                 response = _context2.sent;
@@ -127076,13 +127136,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         }, _callee2, this);
       }));
 
-      function selNotice(_x3, _x4) {
+      function selPostById(_x3, _x4) {
         return _ref2.apply(this, arguments);
       }
 
-      return selNotice;
+      return selPostById;
     }(),
-    selHotTags: function () {
+    selNotice: function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(context, arg) {
         var response;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
@@ -127090,7 +127150,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["a" /* selHotTags */])(arg);
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["b" /* selNotice */])(arg);
 
               case 2:
                 response = _context3.sent;
@@ -127104,8 +127164,36 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         }, _callee3, this);
       }));
 
-      function selHotTags(_x5, _x6) {
+      function selNotice(_x5, _x6) {
         return _ref3.apply(this, arguments);
+      }
+
+      return selNotice;
+    }(),
+    selHotTags: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(context, arg) {
+        var response;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return Object(__WEBPACK_IMPORTED_MODULE_1__api_home_index__["a" /* selHotTags */])(arg);
+
+              case 2:
+                response = _context4.sent;
+                return _context4.abrupt('return', response.data);
+
+              case 4:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function selHotTags(_x7, _x8) {
+        return _ref4.apply(this, arguments);
       }
 
       return selHotTags;
@@ -127118,7 +127206,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = selPostList;
+/* harmony export (immutable) */ __webpack_exports__["d"] = selPostList;
+/* harmony export (immutable) */ __webpack_exports__["c"] = selPostById;
 /* harmony export (immutable) */ __webpack_exports__["b"] = selNotice;
 /* harmony export (immutable) */ __webpack_exports__["a"] = selHotTags;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__untils_request__ = __webpack_require__(31);
@@ -127127,13 +127216,461 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 function selPostList(arg) {
   return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('home/api/index/selPostList', arg);
 }
-
+function selPostById(arg) {
+  return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('home/api/index/selPostById', arg);
+}
 function selNotice(arg) {
   return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('home/api/index/selNotice', arg);
 }
 
 function selHotTags(arg) {
   return __WEBPACK_IMPORTED_MODULE_0__untils_request__["a" /* default */].post('home/api/index/selHotTags', arg);
+}
+
+/***/ }),
+/* 354 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(355)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(357)
+/* template */
+var __vue_template__ = __webpack_require__(358)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Home/detail.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a82d32cc", Component.options)
+  } else {
+    hotAPI.reload("data-v-a82d32cc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 355 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(356);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("6c501caf", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a82d32cc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./detail.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a82d32cc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./detail.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 356 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+exports.push([module.i, "@import url(/css/article_detail.css);", ""]);
+
+// module
+exports.push([module.i, "\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 357 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: '',
+      data: {},
+      hotPosts: []
+    };
+  },
+  created: function created() {
+    this.id = this.$route.params.id;
+    this.loadData(this.id);
+    this.getHotPosts();
+  },
+
+  methods: {
+    go: function go(id) {
+      this.loadData(id);
+    },
+    getHotPosts: function getHotPosts() {
+      var _this = this;
+
+      var formCon = {
+        pageNum: 1,
+        pageSize: 10
+      };
+      this.$store.dispatch('home/index/selPostList', formCon).then(function (res) {
+        if (res) {
+          _this.hotPosts = res.list;
+        }
+      });
+    },
+    loadData: function loadData(id) {
+      var _this2 = this;
+
+      this.$store.dispatch('home/index/selPostById', { id: id }).then(function (res) {
+        if (res) {
+          res.newsType = res.newsType.split(',');
+          _this2.data = res;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "row w_main_row" },
+      [
+        _c("ol", { staticClass: "breadcrumb w_breadcrumb" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("li", { staticClass: "active" }, [
+            _vm._v(_vm._s(_vm.data.newsName))
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "w_navbar_tip" }, [
+            _vm._v("我们长路漫漫，只因学无止境。")
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "el-row",
+          [
+            _c("el-col", { staticClass: "pad10_r", attrs: { span: 18 } }, [
+              _c("div", { staticClass: "panel panel-default" }, [
+                _c("div", { staticClass: "panel-body" }, [
+                  _c("h2", { staticClass: "c_titile" }, [
+                    _vm._v(_vm._s(_vm.data.newsName))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "box_c" }, [
+                    _c("span", { staticClass: "d_time" }, [
+                      _vm._v("发布时间：" + _vm._s(_vm.data.newsTime))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v("编辑："),
+                      _c("a", { attrs: { href: "mailto:wfyv@qq.com" } }, [
+                        _vm._v(_vm._s(_vm.data.newsAuthor))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("阅读（88646）")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "infos content",
+                    domProps: { innerHTML: _vm._s(_vm.data.newsContent) }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "keybq" },
+                    [
+                      _c("span", [_vm._v("关键字：")]),
+                      _vm._v(" "),
+                      _vm._l(_vm.data.newsType, function(item, index) {
+                        return _c(
+                          "a",
+                          { key: index, staticClass: "label label-default" },
+                          [_vm._v(_vm._s(item))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "nextinfo" }, [
+                    _c("p", { staticClass: "last" }, [
+                      _vm._v("上一篇："),
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("免费收录网站搜索引擎登录口大全")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "next" }, [
+                      _vm._v("下一篇："),
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("javascript显示年月日时间代码")
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("el-col", { staticClass: "pad10_l", attrs: { span: 6 } }, [
+              _c("div", { staticClass: "panel panel-default" }, [
+                _c("div", { staticClass: "panel-heading" }, [
+                  _c("h3", { staticClass: "panel-title" }, [_vm._v("最新发布")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel-body" }, [
+                  _c(
+                    "ul",
+                    { staticClass: "list-unstyled sidebar" },
+                    _vm._l(_vm.hotPosts, function(item) {
+                      return _c("li", { key: item.id }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "javascript:;" },
+                            on: {
+                              click: function($event) {
+                                return _vm.go(item.id)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(item.newsName))]
+                        )
+                      ])
+                    }),
+                    0
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel panel-default" }, [
+                _c("div", { staticClass: "panel-heading" }, [
+                  _c("h3", { staticClass: "panel-title" }, [_vm._v("友情链接")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel-body" }, [
+                  _c("div", { staticClass: "newContent" }, [
+                    _c(
+                      "ul",
+                      { staticClass: "list-unstyled sidebar shiplink" },
+                      [
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "https://www.baidu.com/",
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("百度")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "https://www.oschina.net/",
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("开源中国")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "http://www.ulewo.com/",
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("有乐网")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "http://www.sina.com.cn/",
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("新浪网")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: "http://www.qq.com/",
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v("腾讯网")]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("a", { attrs: { href: "/" } }, [_vm._v("首页")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "/home#/articles" } }, [_vm._v("文章")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a82d32cc", module.exports)
+  }
 }
 
 /***/ })

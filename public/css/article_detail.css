@@ -25,7 +25,7 @@
 ul {
     list-style: none;
 }
-ul.infos {
+div.infos {
     overflow: hidden;
     margin: 20px 30px 20px 0;
     line-height: 28px;
@@ -34,7 +34,7 @@ ul.infos {
     color: #666;
 }
 
-ul.infos p {
+div.infos p {
     margin-bottom: 5px;
 }
 

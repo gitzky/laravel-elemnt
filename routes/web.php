@@ -30,7 +30,7 @@ Route::prefix('home')->namespace('Home')->group(function(){
     Route::any('/api/index/selPostList',"HomeController@selPostList");
     Route::any('/api/index/selNotice',"HomeController@selNotice");
     Route::any('/api/index/selHotTags',"HomeController@selHotTags");
-
+    Route::any('/api/index/selPostById',"HomeController@selPostById");
     
 
 

@@ -17,6 +17,10 @@ let homeRoutes=[
         component: require("./components/Home/articles")
     },
     {
+        path: "/articles/detail/:id",
+        component: require("./components/Home/detail")
+    },
+    {
         path: "/about",
         component: require("./components/Home/about")
     },
@@ -24,6 +28,7 @@ let homeRoutes=[
         path: "/comment",
         component: require("./components/Home/comment")
     }
+    
     
     
 ]

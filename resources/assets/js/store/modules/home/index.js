@@ -1,5 +1,6 @@
 import {
   selPostList,
+  selPostById,
   selNotice,
   selHotTags
   
@@ -10,6 +11,11 @@ export default {
   actions: {
     async selPostList(context, arg) {
       const response = await selPostList(arg)
+      return response.data
+    },
+    
+    async selPostById(context, arg) {
+      const response = await selPostById(arg)
       return response.data
     },
     
