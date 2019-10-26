@@ -2180,7 +2180,7 @@ module.exports = __webpack_require__(208);
 // 创建axios实例
 var service = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
   baseURL: Object({"NODE_ENV":"development"}).BASE_API, // api 的 base_url
-  timeout: 5000 // 请求超时时间
+  timeout: 50000 // 请求超时时间
 });
 
 // response 拦截器
@@ -117939,7 +117939,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -117981,7 +117981,6 @@ module.exports = function listToStyles (parentId, list) {
 /* 235 */
 /***/ (function(module, exports) {
 
-//
 //
 //
 //
@@ -118117,9 +118116,6 @@ var render = function() {
                 )
               ],
               1
-            ),
-            _vm._v(
-              "\n         " + _vm._s(_vm.$route.path.split("/")[1]) + "\n\t\t\t"
             )
           ],
           1

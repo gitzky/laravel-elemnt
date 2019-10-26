@@ -15,7 +15,6 @@
   		    <el-input size="small" placeholder="请输入内容">
   		        <el-button slot="append" icon="el-icon-search">搜索</el-button>
   		    </el-input>
-           {{ $route.path.split('/')[1] }}
   			</div>
   		</div>
   	</div>
